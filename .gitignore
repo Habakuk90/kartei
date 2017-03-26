@@ -1,4 +1,6 @@
 **/packages
 **/node_modules
-**/obj/Debug
+**/obj/
 **/dist
+**/*/bin/
+Karteikarten/Karteikarten.v12.suo

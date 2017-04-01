@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Karteikarten.WebApi.Infrastructure;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -16,6 +18,8 @@ namespace Karteikarten_Webapi
     {
         protected void Application_Start()
         {
+
+            Database.SetInitializer<ApplicationDbContext>(new DropCreateDatabaseIfModelChanges<ApplicationDbContext>());
             //AreaRegistration.RegisterAllAreas();
             //GlobalConfiguration.Configure(WebApiConfig.Register);
             //RouteConfig.RegisterRoutes(RouteTable.Routes);

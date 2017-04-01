@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Serialization;
+﻿using Karteikarten.WebApi.Infrastructure;
+using Newtonsoft.Json.Serialization;
 using Owin;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,8 @@ namespace Karteikarten_Webapi
 
             ConfigureWebApi(httpConfig);
 
+            ConfigureOAuthTokenGeneration(app);
+
             WebApiConfig.Register(httpConfig);
 
             RouteConfig.RegisterRoutes(RouteTable.Routes);
@@ -27,6 +30,17 @@ namespace Karteikarten_Webapi
             app.UseWebApi(httpConfig);
 
         }
+
+        private void ConfigureOAuthTokenGeneration(IAppBuilder app)
+        {
+            // Configure the db context and user manager to use a single instance per request
+            app.CreatePerOwinContext(ApplicationDbContext.Create);
+            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+
+            // Plugin the OAuth bearer JSON Web Token tokens generation and Consumption will be here
+
+        }
+
         private void ConfigureWebApi(HttpConfiguration config)
         {
             config.MapHttpAttributeRoutes();

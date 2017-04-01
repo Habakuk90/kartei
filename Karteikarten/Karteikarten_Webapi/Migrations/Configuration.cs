@@ -15,14 +15,6 @@ namespace Karteikarten_Webapi.Migrations
 
         protected override void Seed(Karteikarten.WebApi.Infrastructure.ApplicationDbContext context)
         {
-            
-            var user = new ApplicationUser()
-            {
-                Email = "admin@admin.de",
-                Username = "admin",
-                Password = "b"
-            };
-            
         }
     }
 }

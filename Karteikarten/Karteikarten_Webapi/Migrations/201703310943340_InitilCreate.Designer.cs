@@ -7,13 +7,13 @@ namespace Karteikarten_Webapi.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class InitialCreate : IMigrationMetadata
+    public sealed partial class InitilCreate : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitilCreate));
         
         string IMigrationMetadata.Id
         {
-            get { return "201703292044215_InitialCreate"; }
+            get { return "201703310943340_InitilCreate"; }
         }
         
         string IMigrationMetadata.Source

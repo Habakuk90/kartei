@@ -9,7 +9,8 @@ var app = {
 
         btn.addEventListener('click', function (e, a, b) {
             var inputValue = input.value;
-            
+            debugger;
+            app.ajaxPost();
             if (currentTab && currentTab.url) {
                 alert("Hello, " + inputValue + " your current URL is: " + currentTab.url);
             } else {
@@ -23,6 +24,20 @@ var app = {
                 console.log(a,b,c);
             }
         });
+    },
+    ajaxPost: function() {
+        var model = {
+            'Email': 'cdmin@admin.de',
+            'UserName': 'cdmin',
+            'Password': '123456'
+        }
+        
+        $.ajax({
+            type: 'POST',
+            data: JSON.stringify(model),
+            url: 'http://localhost:55845/api/account/register',
+            contentType: 'application/json'
+        }).done(function(a,b,c) {console.log(a,b,c)})
     }
 }
 

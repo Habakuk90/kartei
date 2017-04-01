@@ -201,6 +201,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Infrastructure\ApplicationUserDbContext.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -239,9 +240,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\ApplicationUser.cs" />
-    <Compile Include="Migrations\201703292044215_InitialCreate.cs" />
-    <Compile Include="Migrations\201703292044215_InitialCreate.Designer.cs">
-      <DependentUpon>201703292044215_InitialCreate.cs</DependentUpon>
+    <Compile Include="Infrastructure\ApplicationUserManager.cs" />
+    <Compile Include="Infrastructure\AuthRepository.cs" />
+    <Compile Include="Migrations\201703310943340_InitilCreate.cs" />
+    <Compile Include="Migrations\201703310943340_InitilCreate.Designer.cs">
+      <DependentUpon>201703310943340_InitilCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -304,6 +307,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Helper\" />
     <Folder Include="Models\" />
     <Folder Include="Scripts\" />
   </ItemGroup>
@@ -311,8 +315,8 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201703292044215_InitialCreate.resx">
-      <DependentUpon>201703292044215_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201703310943340_InitilCreate.resx">
+      <DependentUpon>201703310943340_InitilCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

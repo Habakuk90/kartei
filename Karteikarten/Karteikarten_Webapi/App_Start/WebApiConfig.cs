@@ -10,7 +10,7 @@ namespace Karteikarten_Webapi
     {
         public static void Register(HttpConfiguration config)
         {
-            EnableCrossSiteRequests(config);
+            //EnableCrossSiteRequests(config);
             AddRoutes(config);
         }
 
@@ -28,14 +28,14 @@ namespace Karteikarten_Webapi
             );
         }
 
-        private static void EnableCrossSiteRequests(HttpConfiguration config)
-        {
-            var cors = new EnableCorsAttribute(
-                origins: "*",
-                headers: "*",
-                methods: "*");
-            config.EnableCors(cors);
-        }
+        //private static void EnableCrossSiteRequests(HttpConfiguration config)
+        //{
+        //    var cors = new EnableCorsAttribute(
+        //        origins: "*",
+        //        headers: "*",
+        //        methods: "*");
+        //    config.EnableCors(cors);
+        //}
 
     }
 }

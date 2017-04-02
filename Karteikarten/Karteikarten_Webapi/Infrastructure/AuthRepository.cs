@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Karteikarten.WebApi.Infrastructure;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Threading.Tasks;
 using Karteikarten_Webapi.Models;
-
 
 namespace Karteikarten_Webapi.Infrastructure
 {
@@ -25,19 +21,15 @@ namespace Karteikarten_Webapi.Infrastructure
 
         public async Task<IdentityResult> RegisterUser(ApplicationUser userModel)
         {
-            ApplicationUser user = new ApplicationUser
-            {
-                UserName = userModel.UserName
-            };
-
-            var result = await _userManager.CreateAsync(user, userModel.Password);
+            IdentityResult result = await _userManager.CreateAsync(userModel, userModel.Password);
 
             return result;
         }
 
-        public async Task<IdentityUser> FindUser(string userName, string password)
+
+        public async Task<ApplicationUser> FindUser(string userName, string password)
         {
-            IdentityUser user = await _userManager.FindAsync(userName, password);
+            ApplicationUser user = await _userManager.FindAsync(userName, password);
 
             return user;
         }

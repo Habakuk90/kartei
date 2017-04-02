@@ -9,13 +9,8 @@ var app = {
 
         btn.addEventListener('click', function (e, a, b) {
             var inputValue = input.value;
-            debugger;
-            app.ajaxPost();
-            if (currentTab && currentTab.url) {
-                alert("Hello, " + inputValue + " your current URL is: " + currentTab.url);
-            } else {
-                alert("CANNOT IDENTIFY URL; FORCING SHUTDOWN");
-            }
+
+            app.ajaxPost(); 
         });
     },
     ajax: function () {
@@ -27,15 +22,15 @@ var app = {
     },
     ajaxPost: function() {
         var model = {
-            'Email': 'cdmin@admin.de',
-            'UserName': 'cdmin',
+            'Email': 'bdmin@admin.de',
+            'UserName': 'bdmin',
             'Password': '123456'
         }
         
         $.ajax({
             type: 'POST',
             data: JSON.stringify(model),
-            url: 'http://localhost:55845/api/account/register',
+            url: 'http://localhost:55845/api/account/login',
             contentType: 'application/json'
         }).done(function(a,b,c) {console.log(a,b,c)})
     }

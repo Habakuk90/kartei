@@ -1,16 +1,8 @@
-﻿using Karteikarten.WebApi.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http;
-using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Karteikarten_Webapi.Models;
 using Karteikarten_Webapi.Infrastructure;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 
 
@@ -19,25 +11,8 @@ namespace Karteikarten_Webapi.Controllers
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
-        private readonly AuthRepository _repo = null;
-        private readonly ApplicationDbContext _authContext = new ApplicationDbContext();
-        private readonly UserManager<ApplicationUser> _userManager;
-        //private readonly Microsoft.AspNet.Identity.Owin.SignInManager<ApplicationUser, IEquatable<ApplicationUser>> _signInManager;
 
-        public AccountController(AuthRepository repo, ApplicationDbContext authContext, UserManager<ApplicationUser> userManager)
-        {
-            _repo = new AuthRepository();
-            _authContext = authContext;
-            _userManager = userManager;
-        }
-
-        [Route("Get")]
-        public IHttpActionResult Get()
-        {
-            return Ok();
-        }
-
-
+        private readonly AuthRepository _repo = new AuthRepository();
 
         // POST api/Account/Register
         [AllowAnonymous]
@@ -51,12 +26,7 @@ namespace Karteikarten_Webapi.Controllers
 
             if (userModel == null)
             {
-                userModel = new ApplicationUser()
-                {
-                    Email = "bdmin@bdmin.de",
-                    UserName = "bdmin",
-                    Password = "123456"
-                };
+                // Abfangen bidde;
             }
 
             IdentityResult result = await _repo.RegisterUser(userModel);
@@ -70,6 +40,48 @@ namespace Karteikarten_Webapi.Controllers
 
             return Ok();
         }
+
+
+        //
+        // POST: /api/Account/Login
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("Login")]
+        public async Task<IHttpActionResult> Login(ApplicationUser userModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (userModel == null)
+            {
+                return NotFound();
+            }
+
+            ApplicationUser user = await _repo.FindUser(userModel.UserName, userModel.Password);
+
+            if (user != null)
+            {
+                // Wenn User vorhanden dann mach irgendwas; i.e. Set Cookie into Response Header 
+            }
+            else
+            {
+                return NotFound(); // TODO: vernünftige response wenn nicht vorhanden
+            }
+
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("Logout")]
+        public async Task<IHttpActionResult> Logout()
+        {
+
+            //TODO: Just delete Cookie Maybe
+
+            return Ok();
+        }
+
         private IHttpActionResult GetErrorResult(IdentityResult result)
         {
             if (result == null)

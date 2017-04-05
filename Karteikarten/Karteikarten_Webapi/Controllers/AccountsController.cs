@@ -22,19 +22,19 @@ namespace Karteikarten_Webapi.Controllers
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
-        public async Task<IHttpActionResult> Register(Login loginModel)
+        public async Task<IHttpActionResult> Register(Register registerModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (loginModel == null)
+            if (registerModel == null)
             {
                 // Abfangen bidde;
             }
 
-            IdentityResult result = await _repo.RegisterUser(loginModel);
+            IdentityResult result = await _repo.RegisterUser(registerModel);
 
             IHttpActionResult errorResult = GetErrorResult(result);
 

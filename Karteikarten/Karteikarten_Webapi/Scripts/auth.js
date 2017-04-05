@@ -29,7 +29,6 @@
         $.ajax({
             type: 'POST',
             data: JSON.stringify(model),
-            //data: "userName=bdmin&password=123456",
             url: 'http://localhost:55845/api/account/login',
             contentType: 'application/json',
             dataType: 'text'

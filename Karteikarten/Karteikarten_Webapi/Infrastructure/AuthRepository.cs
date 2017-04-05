@@ -19,11 +19,13 @@ namespace Karteikarten_Webapi.Infrastructure
             _userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(_authContext));
         }
 
-        public async Task<IdentityResult> RegisterUser(Login userModel)
+        public async Task<IdentityResult> RegisterUser(Register userModel)
         {
             IdentityUser user = new IdentityUser();
 
             user.UserName = userModel.UserName;
+
+            user.Email = userModel.Email;
             
             IdentityResult result = await _userManager.CreateAsync(user, userModel.Password);
 

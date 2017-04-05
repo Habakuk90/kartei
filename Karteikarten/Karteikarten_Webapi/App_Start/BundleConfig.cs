@@ -11,9 +11,9 @@ namespace Karteikarten_Webapi
             
             // Examples
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-3.2.1.min.js").Include("~/Scripts/auth.js"));
             
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css").Include("~/Content/css/login.css"));
 
         }
     }

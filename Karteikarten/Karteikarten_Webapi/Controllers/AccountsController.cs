@@ -3,6 +3,11 @@ using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Karteikarten_Webapi.Models;
 using Karteikarten_Webapi.Infrastructure;
+using System.Net.Http.Headers;
+using System.Net.Http;
+using System;
+using System.Net;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 
 
@@ -17,19 +22,19 @@ namespace Karteikarten_Webapi.Controllers
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
-        public async Task<IHttpActionResult> Register(ApplicationUser userModel)
+        public async Task<IHttpActionResult> Register(Login loginModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (userModel == null)
+            if (loginModel == null)
             {
                 // Abfangen bidde;
             }
 
-            IdentityResult result = await _repo.RegisterUser(userModel);
+            IdentityResult result = await _repo.RegisterUser(loginModel);
 
             IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -47,22 +52,23 @@ namespace Karteikarten_Webapi.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Route("Login")]
-        public async Task<IHttpActionResult> Login(ApplicationUser userModel)
+        public async Task<IHttpActionResult> Login(Login loginModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            if (userModel == null)
+            if (loginModel == null)
             {
                 return NotFound();
             }
 
-            ApplicationUser user = await _repo.FindUser(userModel.UserName, userModel.Password);
+            IdentityUser user = await _repo.FindUser(loginModel.UserName, loginModel.Password);
 
             if (user != null)
             {
                 // Wenn User vorhanden dann mach irgendwas; i.e. Set Cookie into Response Header 
+                return ResponseMessage(SetCookie(user));
             }
             else
             {
@@ -80,6 +86,21 @@ namespace Karteikarten_Webapi.Controllers
             //TODO: Just delete Cookie Maybe
 
             return Ok();
+        }
+
+
+        HttpResponseMessage SetCookie(IdentityUser userModel)
+        {
+            var resp = new HttpResponseMessage(HttpStatusCode.Redirect);
+
+            var cookie = new CookieHeaderValue("userName", userModel.UserName);
+            cookie.Expires = DateTimeOffset.Now.AddDays(2);
+            cookie.Domain = Request.RequestUri.Host;
+            cookie.Path = "/";
+            resp.Headers.AddCookies(new CookieHeaderValue[] { cookie });
+            //resp.Headers.Location = new Uri("http://localhost:55845");
+
+            return resp;
         }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)

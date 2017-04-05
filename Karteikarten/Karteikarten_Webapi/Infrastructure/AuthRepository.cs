@@ -11,25 +11,29 @@ namespace Karteikarten_Webapi.Infrastructure
     {
         private ApplicationDbContext _authContext;
 
-        private UserManager<ApplicationUser> _userManager;
+        private UserManager<IdentityUser> _userManager;
 
         public AuthRepository()
         {
             _authContext = new ApplicationDbContext();
-            _userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_authContext));
+            _userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(_authContext));
         }
 
-        public async Task<IdentityResult> RegisterUser(ApplicationUser userModel)
+        public async Task<IdentityResult> RegisterUser(Login userModel)
         {
-            IdentityResult result = await _userManager.CreateAsync(userModel, userModel.Password);
+            IdentityUser user = new IdentityUser();
+
+            user.UserName = userModel.UserName;
+            
+            IdentityResult result = await _userManager.CreateAsync(user, userModel.Password);
 
             return result;
         }
 
 
-        public async Task<ApplicationUser> FindUser(string userName, string password)
+        public async Task<IdentityUser> FindUser(string userName, string password)
         {
-            ApplicationUser user = await _userManager.FindAsync(userName, password);
+            IdentityUser user = await _userManager.FindAsync(userName, password);
 
             return user;
         }

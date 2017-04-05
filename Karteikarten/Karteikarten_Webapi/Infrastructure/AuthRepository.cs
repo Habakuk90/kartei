@@ -33,9 +33,9 @@ namespace Karteikarten_Webapi.Infrastructure
         }
 
 
-        public async Task<IdentityUser> FindUser(string userName, string password)
+        public async Task<IdentityUser> FindUser(Login loginModel)
         {
-            IdentityUser user = await _userManager.FindAsync(userName, password);
+            IdentityUser user = await _userManager.FindAsync(loginModel.UserName, loginModel.Password);
 
             return user;
         }

@@ -63,7 +63,7 @@ namespace Karteikarten_Webapi.Controllers
                 return NotFound();
             }
 
-            IdentityUser user = await _repo.FindUser(loginModel.UserName, loginModel.Password);
+            IdentityUser user = await _repo.FindUser(loginModel);
 
             if (user != null)
             {

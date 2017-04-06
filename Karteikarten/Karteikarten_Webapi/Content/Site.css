@@ -145,7 +145,7 @@ footer {
 
 /* login
 ----------------------------------------------------------*/
-#login {
+/*#login {
     display: block;
     font-size: .85em;
     margin: 0 0 10px;
@@ -174,7 +174,7 @@ footer {
     #login li {
         display: inline;
         list-style: none;
-    }
+    }*/
 
 
 /* menu

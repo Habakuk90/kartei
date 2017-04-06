@@ -9,12 +9,8 @@ var app = {
 
         btn.addEventListener('click', function (e, a, b) {
             var inputValue = input.value;
-            
-            if (currentTab && currentTab.url) {
-                alert("Hello, " + inputValue + " your current URL is: " + currentTab.url);
-            } else {
-                alert("CANNOT IDENTIFY URL; FORCING SHUTDOWN");
-            }
+
+            app.ajaxPost(); 
         });
     },
     ajax: function () {
@@ -23,6 +19,20 @@ var app = {
                 console.log(a,b,c);
             }
         });
+    },
+    ajaxPost: function() {
+        var model = {
+            'Email': 'bdmin@admin.de',
+            'UserName': 'bdmin',
+            'Password': '123456'
+        }
+        
+        $.ajax({
+            type: 'POST',
+            data: JSON.stringify(model),
+            url: 'http://localhost:55845/api/account/login',
+            contentType: 'application/json'
+        }).done(function(a,b,c) {console.log(a,b,c)})
     }
 }
 

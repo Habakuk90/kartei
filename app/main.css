@@ -14,4 +14,57 @@ button {
 }
 .container {
     width: 200px;
+    height:auto;
+    background-color:white;
+    padding:15px;
+
+}
+
+/**/
+
+
+
+/*Components*/
+
+
+.input-wrapper, .output-wrapper{
+    margin-bottom:15px;
+}
+
+#search-input{
+
+}
+
+#search-input-select, #search-output-select,#search-button{
+    width:100%;
+    margin: 10px 0 ;
+}
+
+/*.output-wrapper{
+
+}*/
+
+#search-button{
+margin-bottom: 0;
+}
+
+#search-output-select{
+
+}
+
+#search-input, #search-output, #search-button{
+    border: 1px solid black;
+    padding:5px;
+    background-color:white;
+    min-height:30px;
+    width:100%;
+}
+
+
+#search-output{
+    border: 1px solid black;
+    padding:5px;
+    background-color:white;
+    min-height:30px;
+    width:100%;
 }

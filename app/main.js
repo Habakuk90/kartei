@@ -1,43 +1,60 @@
-var app = {
-    init: function () {
-        var btn = document.querySelector('button');
-        var input = document.querySelector('input');
-        var currentTab = {};
-        chrome.tabs.getSelected(null, function (tab) {
-            currentTab = tab;
-        })
+//variables 
+var $input,
+    $output,
+    $searchInputSelect,
+    $searchOutputSelect,
+    url = 'https://translate.yandex.net/api/v1.5/tr.json/translate?',
+    apiKey = 'trnsl.1.1.20170406T074435Z.462745397ec2fd4b.9f45661cedc89156721292f8ca682f261d05efa8',
+    text = '&text=',
+    lang = '&lang=',
+    from,
+    to,
+    format = '&format=',
+    options = '&options=',
+    callback = '&callback=';
 
-        btn.addEventListener('click', function (e, a, b) {
-            var inputValue = input.value;
+var refreshVars = function () {
+    $input = $('#search-input');
+    $output = $('#search-output');
+    $searchInputSelect = $('#search-input-select');
+    $searchOutputSelect = $('#search-output-select');
+}
 
-            app.ajaxPost(); 
-        });
-    },
-    ajax: function () {
-        $.ajax("http://local.karteikarten.de/api/values", { // gib hier deine localhost:PORT addresse ein. Oder bindings einrichten beim iis
-            success: function (a, b, c) {
-                console.log(a,b,c);
+var buttonClick = function () {
+    $('#search-button').on('click', function () {
+        refreshVars();
+        yandex();
+    })
+};
+
+var yandex = function () {
+    var xhr = new XMLHttpRequest(),
+        from = $searchInputSelect.val(),
+        to = $searchOutputSelect.val();
+
+    data = 'key=' + apiKey + '&text=' + $input.val() + '&lang=' + from + '-' + to;
+    console.log(url + data);
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.send(data);
+    xhr.onreadystatechange = function () {
+
+        if (this.readyState == 4 && this.status == 200) {
+            var res = this.responseText;
+            console.log(res);
+            var json = JSON.parse(res);
+            if (json.code == 200) {
+                console.log(json);
+                $output.html(json.text[0]);
+
+            } else {
+                console.log('Error Code: ' + json.code);
             }
-        });
-    },
-    ajaxPost: function() {
-        var model = {
-            'Email': 'bdmin@admin.de',
-            'UserName': 'bdmin',
-            'Password': '123456'
         }
-        
-        $.ajax({
-            type: 'POST',
-            data: JSON.stringify(model),
-            url: 'http://localhost:55845/api/account/login',
-            contentType: 'application/json'
-        }).done(function(a,b,c) {console.log(a,b,c)})
     }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+$(document).ready(function () {
+    buttonClick();
 
-    app.init();
-    app.ajax();
 });

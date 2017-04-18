@@ -43,7 +43,7 @@ namespace Karteikarten_Webapi.Controllers
                 return errorResult;
             }
 
-            return Ok();
+            return Ok(result);
         }
 
 
@@ -68,6 +68,7 @@ namespace Karteikarten_Webapi.Controllers
             if (user != null)
             {
                 // Wenn User vorhanden dann mach irgendwas; i.e. Set Cookie into Response Header 
+                //Request.
                 return ResponseMessage(SetCookie(user));
             }
             else
@@ -91,15 +92,14 @@ namespace Karteikarten_Webapi.Controllers
 
         HttpResponseMessage SetCookie(IdentityUser userModel)
         {
-            var resp = new HttpResponseMessage(HttpStatusCode.Redirect);
-
+            var resp = new HttpResponseMessage(HttpStatusCode.Accepted);
+            
             var cookie = new CookieHeaderValue("userName", userModel.UserName);
-            cookie.Expires = DateTimeOffset.Now.AddDays(2);
+            cookie.Expires = DateTimeOffset.Now.AddMinutes(60);
             cookie.Domain = Request.RequestUri.Host;
             cookie.Path = "/";
             resp.Headers.AddCookies(new CookieHeaderValue[] { cookie });
-            //resp.Headers.Location = new Uri("http://localhost:55845");
-
+            
             return resp;
         }
 

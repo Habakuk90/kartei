@@ -10,7 +10,18 @@ namespace Karteikarten_Webapi.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            HttpCookie cookie = Request.Cookies["userName"];
+
+            string text = "You Are Logged In as : ";
+
+            if (cookie != null)
+            {
+                return View(model: text + cookie.Value);
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }

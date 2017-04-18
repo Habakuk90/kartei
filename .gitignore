@@ -1,7 +1,0 @@
-**/packages
-**/node_modules
-**/obj/Debug
-**/dist
-Karteikarten/Karteikarten_Webapi/bin/
-Karteikarten/Karteikarten.v12.suo
-Karteikarten/Karteikarten_Webapi/Karteikarten_Webapi.csproj.user

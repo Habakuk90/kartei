@@ -1,20 +1,23 @@
 ﻿using Karteikarten_Webapi.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 
 namespace Karteikarten.WebApi.Infrastructure
 {
-    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+    public class KarteiContext : IdentityDbContext<IdentityUser>
     {
-        public ApplicationDbContext()
+        public KarteiContext()
             : base("web", throwIfV1Schema: false)
         {
             Configuration.ProxyCreationEnabled = false;
             Configuration.LazyLoadingEnabled = false;
         }
 
-        public static ApplicationDbContext Create()
+        public virtual DbSet<Karteikarte> Karteikarte { get; set; }
+
+        public static KarteiContext Create()
         {
-            return new ApplicationDbContext();
+            return new KarteiContext();
         }
 
     }

@@ -9,14 +9,14 @@ namespace Karteikarten_Webapi.Infrastructure
 {
     public class AuthRepository : IDisposable
     {
-        private ApplicationDbContext _authContext;
+        private KarteiContext _userContext;
 
         private UserManager<IdentityUser> _userManager;
 
         public AuthRepository()
         {
-            _authContext = new ApplicationDbContext();
-            _userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(_authContext));
+            _userContext = new KarteiContext();
+            _userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(_userContext));
         }
 
         public async Task<IdentityResult> RegisterUser(Register userModel)
@@ -42,7 +42,7 @@ namespace Karteikarten_Webapi.Infrastructure
 
         public void Dispose()
         {
-            _authContext.Dispose();
+            _userContext.Dispose();
             _userManager.Dispose();
 
         }

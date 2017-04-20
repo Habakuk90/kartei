@@ -1,1 +1,5 @@
 **/packages/*
+**/Karteikarten_webapi/bin/*
+**/Karteikarten_webapi/obj/*
+*.suo
+*.user

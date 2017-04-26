@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Karteikarten_Webapi.Controllers
+namespace Karteikarten.Karteikarten_Webapi.Controllers
 {
     public class HomeController : Controller
     {
@@ -16,11 +16,11 @@ namespace Karteikarten_Webapi.Controllers
 
             if (cookie != null)
             {
-                return View(model: text + cookie.Value);
+                return View("~/Karteikarten/Views/Home/Index.cshtml", model: text + cookie.Value);
             }
             else
             {
-                return View();
+                return View("~/Karteikarten/Views/Home/Index.cshtml");
             }
         }
     }

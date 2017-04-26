@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
 
-namespace Karteikarten_Webapi.Models
+namespace Karteikarten.Karteikarten_Webapi.Models
 {
     public class ApplicationUser : IdentityUser
     {

@@ -1,4 +1,4 @@
-﻿using Karteikarten.WebApi.Infrastructure;
+﻿using Karteikarten.Karteikarten.WebApi.Infrastructure;
 using Newtonsoft.Json.Serialization;
 using Owin;
 using System.Data.Entity;
@@ -16,7 +16,7 @@ namespace Karteikarten_Webapi
         {
             HttpConfiguration httpConfig = new HttpConfiguration();
 
-            Database.SetInitializer<KarteiContext>(new DropCreateDatabaseIfModelChanges<KarteiContext>());
+            Database.SetInitializer<KarteiContext>(new DropCreateDatabaseAlways<KarteiContext>());
 
             ConfigureWebApi(httpConfig);
             //Register WebApi Routes/Config

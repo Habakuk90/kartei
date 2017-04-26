@@ -9,7 +9,6 @@
     @*<script src="~/Scripts/jquery-3.2.1.min.js"></script>*@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
     
 </head>
 <body>
@@ -17,7 +16,7 @@
         <div class="content-wrapper">
             <div class="float-left">
                 <p class="site-title">
-                    <a href="~/">ASP.NET Web API</a></p>
+                    <a href="~/">ASP.NET Web API2</a></p>
             </div>
             <div class="float-right">
                 <nav>
@@ -31,8 +30,8 @@
     </header>
     @RenderBody()
 
-    @Scripts.Render("~/bundles/jquery")
 
     @RenderSection("scripts", required: false)
+    <script src="~/Karteikarten/Scripts/auth.js"></script>
 </body>
 </html>

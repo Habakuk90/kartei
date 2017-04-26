@@ -1,8 +1,8 @@
-﻿using Karteikarten_Webapi.Models;
+﻿using Karteikarten.Karteikarten_Webapi.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 
-namespace Karteikarten.WebApi.Infrastructure
+namespace Karteikarten.Karteikarten.WebApi.Infrastructure
 {
     public class KarteiContext : IdentityDbContext<IdentityUser>
     {
@@ -13,7 +13,6 @@ namespace Karteikarten.WebApi.Infrastructure
             Configuration.LazyLoadingEnabled = false;
         }
 
-        public virtual DbSet<Karteikarte> Karteikarte { get; set; }
 
         public static KarteiContext Create()
         {

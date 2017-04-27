@@ -7,9 +7,9 @@
 <html>
 
 <head>
-<meta charset="UTF-8">
-<meta name="description" content="Kartei Karten">
-<meta name="keywords" content="translate">
+    <meta charset="UTF-8">
+    <meta name="description" content="Kartei Karten">
+    <meta name="keywords" content="translate">
 
 
     <title>Karteikarten</title>
@@ -21,22 +21,24 @@
         - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
        -->
     <script src="jquery-3.2.1.min.js"></script>
+
     <script src="main.js"></script>
 </head>
 
 <body>
-<div class="container">
-    <div class="question">
-        <p> Test Content</p>
-        <p class="btn-close">Translator ></p>
-    </div>
-    <div class="translator">
-    <p class="intro">Kartei-Karten Übersetzer</p>
-    <p class="btn-question">< Frag mich!</p>
-    
-        <div class="input-wrapper">
-            <input type="text" id="search-input" class="" placeholder="Eingabe">
-            <select id="search-input-select">
+    <div class="container">
+        <div class="question">
+            <p> Test Content</p>
+            <p class="btn-close">Translator ></p>
+        </div>
+        <div class="translator">
+            <p class="intro">Kartei-Karten Übersetzer</p>
+            <p class="btn-question">
+                < Frag mich!</p>
+
+                    <div class="input-wrapper">
+                        <input type="text" id="search-input" class="" placeholder="Eingabe">
+                        <select id="search-input-select">
                 <optgroup label="meist genutzte Sprachen">
                     <option value="de">Deutsch</option>
                     <option value="en">Englisch</option>
@@ -44,6 +46,52 @@
                     <option value="it">Italienisch</option>
                     <option value="ja">Japanisch</option>
                     <option value="la">Latein</option>
+                    <option value="pl">Polnisch</option>
+                    <option value="ru">Russisch</option>
+                    <option value="es">Spanisch</option>
+                </optgroup>
+                <optgroup label="other Languages">
+                    <option value="sq">Albanisch</option>
+                    <option value="ar">Arabisch</option>
+                    <option value="hy">Armenisch</option>
+                    <option value="bg">Bulgarisch</option>
+                    <option value="zh">Chinesisch</option>
+                    <option value="da">Dänisch</option>
+                    <option value="eo">Esperanto</option>
+                    <option value="fi">Finnisch</option>
+                    <option value="el">Griechisch</option>
+                    <option value="ga">Irisch</option>
+                    <option value="ko">Koreanisch</option>
+                    <option value="hr">Kroatisch</option>
+                    <option value="mn">Mongolisch</option>
+                    <option value="nl">Niederländisch</option>  
+                    <option value="pt">Portugiesisch</option>
+                    <option value="ro">Rumänisch</option>
+                    <option value="sv">Schwedisch</option>
+                    <option value="sr">Serbisch</option>
+                    <option value="sk">Slowakisch</option>
+                    <option value="sl">Slowenisch</option>
+                    <option value="th">Thailändisch</option>
+                    <option value="cs">Tschechisch</option>
+                    <option value="tr">Türkisch</option>
+                    <option value="uk">Ukrainisch</option>
+                    <option value="hu">Ungarisch</option>
+                    <option value="be">Weißrussisch</option>
+                </optgroup>
+            </select>
+
+                        <p class="spacer">zu</p>
+
+
+                        <select id="search-output-select">
+                <optgroup label="meist genutzte Sprachen">
+                    <option value="de">Deutsch</option>
+                    <option value="en">Englisch</option>
+                    <option value="fr">Französisch</option>
+                    <option value="it">Italienisch</option>
+                    <option value="ja">Japanisch</option>
+                    <option value="la">Latein</option>
+                    <option value="pl">Polnisch</option>
                     <option value="ru">Russisch</option>
                     <option value="es">Spanisch</option>
                 </optgroup>
@@ -62,7 +110,6 @@
                     <option value="hr">Kroatisch</option>
                     <option value="mn">Mongolisch</option>
                     <option value="nl">Niederländisch</option>
-                    <option value="pl">Polnisch</option>
                     <option value="pt">Portugiesisch</option>
                     <option value="ro">Rumänisch</option>
                     <option value="sv">Schwedisch</option>
@@ -77,63 +124,18 @@
                     <option value="be">Weißrussisch</option>
                 </optgroup>
             </select>
-
-            <p class="spacer">zu</p>
-
-
-            <select id="search-output-select">
-                <optgroup label="meist genutzte Sprachen">
-                    <option value="de">Deutsch</option>
-                    <option value="en">Englisch</option>
-                    <option value="fr">Französisch</option>
-                    <option value="it">Italienisch</option>
-                    <option value="ja">Japanisch</option>
-                    <option value="la">Latein</option>
-                    <option value="ru">Russisch</option>
-                    <option value="es">Spanisch</option>
-                </optgroup>
-                <optgroup label="other Languages">
-                    <option value="sq">Albanisch</option>
-                    <option value="ar">Arabisch</option>
-                    <option value="hy">Armenisch</option>
-                    <option value="bg">Bulgarisch</option>
-                    <option value="zh">Chinesisch</option>
-                    <option value="da">Dänisch</option>
-                    <option value="eo">Esperanto</option>
-                    <option value="fi">Finnisch</option>
-                    <option value="el">Griechisch</option>
-                    <option value="ga">Irisch</option>
-                    <option value="ko">Koreanisch</option>
-                    <option value="hr">Kroatisch</option>
-                    <option value="mn">Mongolisch</option>
-                    <option value="nl">Niederländisch</option>
-                    <option value="pl">Polnisch</option>
-                    <option value="pt">Portugiesisch</option>
-                    <option value="ro">Rumänisch</option>
-                    <option value="sv">Schwedisch</option>
-                    <option value="sr">Serbisch</option>
-                    <option value="sk">Slowakisch</option>
-                    <option value="sl">Slowenisch</option>
-                    <option value="th">Thailändisch</option>
-                    <option value="cs">Tschechisch</option>
-                    <option value="tr">Türkisch</option>
-                    <option value="uk">Ukrainisch</option>
-                    <option value="hu">Ungarisch</option>
-                    <option value="be">Weißrussisch</option>
-                </optgroup>
-            </select>
-            <button id="search-button">
+                        <button id="search-button">
                 Suchen!
             </button>
 
-        </div>
-        <div class="output-wrapper">
-            <div id="loading"></div>
-            <input type="text" id="search-output" class="" placeholder="Ausgabe">
-        </div>
+                    </div>
+                    <div class="output-wrapper">
+                        <div id="loading"></div>
+                        <input type="text" id="search-output" class="" placeholder="Ausgabe">
+                    </div>
 
+        </div>
     </div>
-</div>
 
 </body>
 

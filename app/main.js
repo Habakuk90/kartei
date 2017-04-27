@@ -1,15 +1,3 @@
-//jqstuff 
-$(document).ready(function () {
-    if ($('.translator').length) {
-        translateButtonClick();
-    }
-    refreshVars();
-    questionButtonClick();
-    closeButtonClick();
-});
-
-
-
 //translation Area
 var $input,
     $output,
@@ -18,27 +6,38 @@ var $input,
     $quest,
     url = 'https://translate.yandex.net/api/v1.5/tr.json/translate?',
     apiKey = 'trnsl.1.1.20170406T074435Z.462745397ec2fd4b.9f45661cedc89156721292f8ca682f261d05efa8',
+    cS,
     text = '&text=',
     lang = '&lang=',
-    from,
-    to,
+    fromShort,
+    fromLong,
+    toShort,
+    toLong,
     format = '&format=',
     options = '&options=',
-    callback = '&callback=';
+    callback = '&callback=',
+    karteiKarte = {},
+    session = [];
+var counter = 0;
 
 var refreshVars = function () {
     $input = $('#search-input');
     $output = $('#search-output');
     $searchInputSelect = $('#search-input-select');
     $searchOutputSelect = $('#search-output-select');
+    fromShort = $searchInputSelect.val();
+    fromLong = $('#search-input-select option:selected').text();
+    toShort = $searchOutputSelect.val();
+    toLong = $('#search-output-select option:selected').text();
     $quest = $('.question');
 }
-var yandex = function () {
-    var xhr = new XMLHttpRequest(),
-        from = $searchInputSelect.val(),
-        to = $searchOutputSelect.val();
+var translateRequest = function () {
+    var xhr = new XMLHttpRequest();
 
-    data = 'key=' + apiKey + '&text=' + $input.val() + '&lang=' + from + '-' + to;
+    // from = $searchInputSelect.val();
+    // to = $searchOutputSelect.val();
+
+    data = 'key=' + apiKey + text + $input.val() + lang + fromShort + '-' + toShort;
     console.log(url + data);
     xhr.open('POST', url, true);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -55,6 +54,8 @@ var yandex = function () {
                     $output.html('Sorry but the Word is too similiar');
                 } else {
                     $output.val(json.text[0]);
+                    fillSession();
+
                 }
 
             } else {
@@ -67,13 +68,14 @@ var yandex = function () {
 }
 var translateButtonClick = function () {
     $('#search-button').on('click', function () {
+
         refreshVars();
-        yandex();
-    })
+        translateRequest();
+    });
 };
 
-
 // end of translation Area
+
 
 //Question Area
 var questionButtonClick = function () {
@@ -94,5 +96,146 @@ var closeButtonClick = function () {
 
 }
 
-
 //end of Question Area
+
+
+//Local Storage Area
+
+var isEmpty = function (obj) {
+    for (var prop in obj) {
+        if (obj.hasOwnProperty(prop))
+            return false;
+    }
+
+    return true;
+}
+
+var storageCheck = function () {
+
+    chrome.storage.local.get(function (cS) {
+
+        if (!isEmpty(cS.session)) {
+            if (cS.session.length > counter) {
+                counter = cS.session.length;
+                for (i = 0; i < counter; i++) {
+                    session.push(cS.session[i]);
+                }
+                console.log(session);
+                counter++
+            }
+        } else {
+            console.info('Chrome Local Storage is empty!');
+        }
+    });
+}
+
+var fillSession = function () {
+
+    karteiKarte = {
+        id: counter,
+        InputLangShort: fromShort,
+        InputLangLong: fromLong.toLowerCase(),
+        InputWort: $input.val(),
+        OutputLangShort: toShort,
+        OutputLangLong: toLong.toLowerCase(),
+        OutputWort: $output.val()
+    }
+
+    session.push(karteiKarte);
+    console.log(session);
+    counter++;
+
+    chrome.storage.local.set({
+        session
+    }, function () {
+        console.log('karteikarte:' + karteiKarte.id + ' - ' + karteiKarte.InputWort + ' is saved');
+    });
+}
+
+//end of Local Storage Area
+
+
+
+
+
+
+//jqstuff 
+$(document).ready(function () {
+    if ($('.translator').length) {
+        translateButtonClick();
+    }
+    refreshVars();
+    storageCheck();
+    questionButtonClick();
+    closeButtonClick();
+
+    fakeFill();
+});
+
+
+
+
+//Fake Stuff
+
+var karteiKarte0 = {
+    id: 0,
+    InputLangShort: 'de',
+    InputLangLong: 'deutsch',
+    InputWort: 'Hallo',
+    OutputLangShort: 'en',
+    OutputLangLong: 'englisch',
+    OutputWort: 'Hello'
+}
+var karteiKarte1 = {
+    id: 1,
+    InputLangShort: 'de',
+    InputLangLong: 'deutsch',
+    InputWort: 'Katze',
+    OutputLangShort: 'en',
+    OutputLangLong: 'englisch',
+    OutputWort: 'Cat'
+};
+var karteiKarte2 = {
+    id: 2,
+    InputLangShort: 'de',
+    InputLangLong: 'deutsch',
+    InputWort: 'Auto',
+    OutputLangShort: 'en',
+    OutputLangLong: 'englisch',
+    OutputWort: 'Car'
+};
+var karteiKarte3 = {
+    id: 3,
+    InputLangShort: 'de',
+    InputLangLong: 'deutsch',
+    InputWort: 'Würfel',
+    OutputLangShort: 'en',
+    OutputLangLong: 'englisch',
+    OutputWort: 'Cube'
+};
+var karteiKarte4 = {
+    id: 4,
+    InputLangShort: 'de',
+    InputLangLong: 'deutsch',
+    InputWort: 'Wunderbar',
+    OutputLangShort: 'en',
+    OutputLangLong: 'englisch',
+    OutputWort: 'Wonderful'
+};
+//fake karteikarten
+var fakeFill = function () {
+    chrome.storage.local.clear();
+    session = [];
+
+    session.push(karteiKarte0, karteiKarte1, karteiKarte2, karteiKarte3, karteiKarte4);
+
+    chrome.storage.local.set({
+        session
+    }, function () {
+        console.log('fake fill done!');
+    });
+
+    chrome.storage.local.get(function (cS) {
+        console.log(cS.session)
+    })
+}

@@ -267,7 +267,7 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
-    <Content Include="Karteikarten\css\login.css" />
+    <Content Include="Karteikarten\Styles\login.css" />
     <Content Include="Karteikarten\Scripts\auth.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -301,7 +301,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\css\" />
     <Folder Include="Helper\" />
-    <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

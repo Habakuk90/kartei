@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 input {
@@ -8,63 +9,99 @@ input {
 }
 
 button {
-    background-color:  white;
+    background-color: white;
     border: 1px solid black;
-
 }
+
 .container {
-    width: 200px;
-    height:auto;
-    background-color:white;
-    padding:15px;
-
+    width: 250px;
+    height: auto;
+    background-color: white;
+    padding: 30px 15px 15px 15px;
 }
 
-/**/
+.question {
+    background-color: white;
+    width: 0;
+    height: 100%;
+    position: fixed;
+    opacity: 0;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    transition: width 0.5s;
+    transition: opacity 0.25s;
+}
 
+.is-active {
+    width: 250px;
+    padding: 15px;
+    opacity: 1;
+}
 
 
 /*Components*/
 
-
-.input-wrapper, .output-wrapper{
-    margin-bottom:15px;
+.intro {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0 15px 0;
 }
 
-#search-input{
-
+.spacer {
+    margin: 15px 0;
+    font-size: 18px;
+    font-weight: bold;
 }
 
-#search-input-select, #search-output-select,#search-button{
-    width:100%;
-    margin: 10px 0 ;
+.input-wrapper,
+.output-wrapper {
+    margin-bottom: 15px;
 }
+
+#search-input {}
+
+#search-input-select,
+#search-output-select,
+#search-button {
+    width: 100%;
+    margin: 10px 0;
+    min-height: 35px;
+}
+
 
 /*.output-wrapper{
 
 }*/
 
-#search-button{
-margin-bottom: 0;
+#search-button {
+    margin-bottom: 0;
 }
 
-#search-output-select{
+#search-output-select {}
 
+#search-input,
+#search-output,
+#search-button {
+    min-height: 35px;
+    padding: 5px;
+    background-color: white;
+    width: 100%;
 }
 
-#search-input, #search-output, #search-button{
-    border: 1px solid black;
-    padding:5px;
-    background-color:white;
-    min-height:30px;
-    width:100%;
+
+/*Buttons*/
+
+.btn-close {
+    position: absolute;
+    right: 15px;
+    top: 15px;
 }
 
-
-#search-output{
-    border: 1px solid black;
-    padding:5px;
-    background-color:white;
-    min-height:30px;
-    width:100%;
+.btn-question {
+    position: absolute;
+    left: 15px;
+    top: 15px;
 }

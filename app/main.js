@@ -18,8 +18,12 @@ var $input,
     callback = '&callback=',
     karteiKarte = {},
     session = [];
+
+// Counter for numeration for Cards and marker for existent cards in the storage  
 var counter = 0;
 
+
+// refresh function for the essential variables which are used in every function
 var refreshVars = function () {
     $input = $('#search-input');
     $output = $('#search-output');
@@ -31,6 +35,8 @@ var refreshVars = function () {
     toLong = $('#search-output-select option:selected').text();
     $quest = $('.question');
 }
+
+//translation function which is always fired on button search 
 var translateRequest = function () {
     var xhr = new XMLHttpRequest();
 
@@ -43,7 +49,7 @@ var translateRequest = function () {
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.send(data);
     xhr.onreadystatechange = function () {
-
+// ready state iteration from 1 to 4 with error handling
         if (this.readyState == 4 && this.status == 200) {
             var response = this.responseText;
             console.log(response);
@@ -66,6 +72,8 @@ var translateRequest = function () {
         }
     }
 }
+
+//overall button action
 var translateButtonClick = function () {
     $('#search-button').on('click', function () {
 
@@ -100,7 +108,7 @@ var closeButtonClick = function () {
 
 
 //Local Storage Area
-
+// function for checking the obj - essential for error handling 
 var isEmpty = function (obj) {
     for (var prop in obj) {
         if (obj.hasOwnProperty(prop))
@@ -110,6 +118,8 @@ var isEmpty = function (obj) {
     return true;
 }
 
+
+// storage check will always be fired at the opening sequence in order to get every stored item in the Chrome local storage 
 var storageCheck = function () {
 
     chrome.storage.local.get(function (cS) {
@@ -129,6 +139,8 @@ var storageCheck = function () {
     });
 }
 
+
+// will be fired 
 var fillSession = function () {
 
     karteiKarte = {
@@ -150,6 +162,10 @@ var fillSession = function () {
     }, function () {
         console.log('karteikarte:' + karteiKarte.id + ' - ' + karteiKarte.InputWort + ' is saved');
     });
+
+    //insert api call to store in database
+
+    
 }
 
 //end of Local Storage Area
@@ -169,73 +185,75 @@ $(document).ready(function () {
     questionButtonClick();
     closeButtonClick();
 
-    fakeFill();
+    // fakeFill();
 });
 
 
 
 
-//Fake Stuff
+// Fake Stuff
 
-var karteiKarte0 = {
-    id: 0,
-    InputLangShort: 'de',
-    InputLangLong: 'deutsch',
-    InputWort: 'Hallo',
-    OutputLangShort: 'en',
-    OutputLangLong: 'englisch',
-    OutputWort: 'Hello'
-}
-var karteiKarte1 = {
-    id: 1,
-    InputLangShort: 'de',
-    InputLangLong: 'deutsch',
-    InputWort: 'Katze',
-    OutputLangShort: 'en',
-    OutputLangLong: 'englisch',
-    OutputWort: 'Cat'
-};
-var karteiKarte2 = {
-    id: 2,
-    InputLangShort: 'de',
-    InputLangLong: 'deutsch',
-    InputWort: 'Auto',
-    OutputLangShort: 'en',
-    OutputLangLong: 'englisch',
-    OutputWort: 'Car'
-};
-var karteiKarte3 = {
-    id: 3,
-    InputLangShort: 'de',
-    InputLangLong: 'deutsch',
-    InputWort: 'Würfel',
-    OutputLangShort: 'en',
-    OutputLangLong: 'englisch',
-    OutputWort: 'Cube'
-};
-var karteiKarte4 = {
-    id: 4,
-    InputLangShort: 'de',
-    InputLangLong: 'deutsch',
-    InputWort: 'Wunderbar',
-    OutputLangShort: 'en',
-    OutputLangLong: 'englisch',
-    OutputWort: 'Wonderful'
-};
-//fake karteikarten
-var fakeFill = function () {
-    chrome.storage.local.clear();
-    session = [];
+// var karteiKarte0 = {
+//     id: 0,
+//     InputLangShort: 'de',
+//     InputLangLong: 'deutsch',
+//     InputWort: 'Hallo',
+//     OutputLangShort: 'en',
+//     OutputLangLong: 'englisch',
+//     OutputWort: 'Hello'
+// }
+// var karteiKarte1 = {
+//     id: 1,
+//     InputLangShort: 'de',
+//     InputLangLong: 'deutsch',
+//     InputWort: 'Katze',
+//     OutputLangShort: 'en',
+//     OutputLangLong: 'englisch',
+//     OutputWort: 'Cat'
+// };
+// var karteiKarte2 = {
+//     id: 2,
+//     InputLangShort: 'de',
+//     InputLangLong: 'deutsch',
+//     InputWort: 'Auto',
+//     OutputLangShort: 'en',
+//     OutputLangLong: 'englisch',
+//     OutputWort: 'Car'
+// };
+// var karteiKarte3 = {
+//     id: 3,
+//     InputLangShort: 'de',
+//     InputLangLong: 'deutsch',
+//     InputWort: 'Würfel',
+//     OutputLangShort: 'en',
+//     OutputLangLong: 'englisch',
+//     OutputWort: 'Cube'
+// };
+// var karteiKarte4 = {
+//     id: 4,
+//     InputLangShort: 'de',
+//     InputLangLong: 'deutsch',
+//     InputWort: 'Wunderbar',
+//     OutputLangShort: 'en',
+//     OutputLangLong: 'englisch',
+//     OutputWort: 'Wonderful'
+// };
 
-    session.push(karteiKarte0, karteiKarte1, karteiKarte2, karteiKarte3, karteiKarte4);
 
-    chrome.storage.local.set({
-        session
-    }, function () {
-        console.log('fake fill done!');
-    });
+// fake karteikarten
+// var fakeFill = function () {
+//     chrome.storage.local.clear();
+//     session = [];
 
-    chrome.storage.local.get(function (cS) {
-        console.log(cS.session)
-    })
-}
+//     session.push(karteiKarte0, karteiKarte1, karteiKarte2, karteiKarte3, karteiKarte4);
+
+//     chrome.storage.local.set({
+//         session
+//     }, function () {
+//         console.log('fake fill done!');
+//     });
+
+//     chrome.storage.local.get(function (cS) {
+//         console.log(cS.session)
+//     })
+// }

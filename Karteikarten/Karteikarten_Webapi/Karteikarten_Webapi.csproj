@@ -237,10 +237,15 @@
       <SubType>
       </SubType>
     </Compile>
-    <Compile Include="Karteikarten\Infrastructure\ApplicationUser.cs" />
-    <Compile Include="Karteikarten\Infrastructure\AuthRepository.cs" />
-    <Compile Include="Karteikarten\Infrastructure\KarteiContext.cs" />
+    <Compile Include="Karteikarten\Controllers\KarteikartenController.cs" />
+    <Compile Include="Karteikarten\Controllers\KarteiSessionController.cs" />
+    <Compile Include="Karteikarten\Helper\AuthRepository.cs" />
+    <Compile Include="Karteikarten\Helper\KarteiContext.cs" />
+    <Compile Include="Karteikarten\Helper\SessionRepository.cs" />
+    <Compile Include="Karteikarten\Models\Karteikarte.cs" />
     <Compile Include="Karteikarten\Models\Login.cs" />
+    <Compile Include="Karteikarten\Models\KarteiSession.cs" />
+    <Compile Include="Karteikarten\Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -267,6 +272,7 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
+    <Content Include="Karteikarten\Scripts\vendor\jquery-3.2.1.min.js" />
     <Content Include="Karteikarten\Styles\login.css" />
     <Content Include="Karteikarten\Scripts\auth.js" />
     <Content Include="Web.config">
@@ -292,9 +298,6 @@
     <Content Include="Images\orderedList7.png" />
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
-    <Content Include="Views\Web.config">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -321,6 +324,9 @@
     <Content Include="Karteikarten\Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Karteikarten\Views\Session\Session.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,11 @@
+﻿@using Karteikarten_Webapi.Karteikarten.Models
+@*@model Model noch hinzufügen bidde*@
+
+
+@foreach (var karteikarte in Model.Karteikarten)
+{
+
+    <div><span>@karteikarte.Input</span></div>
+    <div><span>@karteikarte.Output</span></div>
+
+}

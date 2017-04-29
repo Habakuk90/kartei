@@ -1,17 +1,17 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
-using Karteikarten.Karteikarten_Webapi.Models;
-using Karteikarten.Karteikarten_Webapi.Infrastructure;
 using System.Net.Http.Headers;
 using System.Net.Http;
 using System;
 using System.Net;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Karteikarten_Webapi.Karteikarten.Models;
+using Karteikarten_Webapi.Karteikarten.Infrastructure;
 
 
 
-namespace Karteikarten.Karteikarten_Webapi.Controllers
+namespace Karteikarten_Webapi.Karteikarten.Controllers
 {
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController

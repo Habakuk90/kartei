@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Karteikarten.Karteikarten_Webapi.Controllers
+namespace Karteikarten_Webapi.Karteikarten.Controllers
 {
     public class HomeController : Controller
     {

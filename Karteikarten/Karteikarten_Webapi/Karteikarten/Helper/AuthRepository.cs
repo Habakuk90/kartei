@@ -1,11 +1,11 @@
 ﻿using System;
-using Karteikarten.Karteikarten.WebApi.Infrastructure;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Threading.Tasks;
-using Karteikarten.Karteikarten_Webapi.Models;
+using Karteikarten_Webapi.Karteikarten.Models;
+using Karteikarten.WebApi.Karteikarten.Infrastructure;
 
-namespace Karteikarten.Karteikarten_Webapi.Infrastructure
+namespace Karteikarten_Webapi.Karteikarten.Infrastructure
 {
     public class AuthRepository : IDisposable
     {

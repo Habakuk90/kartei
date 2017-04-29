@@ -1,4 +1,4 @@
-﻿using Karteikarten.Karteikarten.WebApi.Infrastructure;
+﻿using Karteikarten.WebApi.Karteikarten.Infrastructure;
 using Newtonsoft.Json.Serialization;
 using Owin;
 using System.Data.Entity;

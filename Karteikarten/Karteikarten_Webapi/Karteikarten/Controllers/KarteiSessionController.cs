@@ -4,8 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Karteikarten.WebApi.Karteikarten.Infrastructure;
-using Karteikarten_Webapi.Karteikarten.Helper;
+using Karteikarten.WebApi.Karteikarten.Helper;
 
 namespace Karteikarten_Webapi.Karteikarten.Controllers
 {
@@ -26,7 +25,6 @@ namespace Karteikarten_Webapi.Karteikarten.Controllers
         public HttpResponseMessage CreateSession(List<Karteikarte> KarteiList)
         {
             KarteiSession newSession = new KarteiSession(KarteiList);
-            SessionRepository _repo = new SessionRepository();
             List<Karteikarte> newKarteiList = new List<Karteikarte>();
 
             foreach (var item in KarteiList)

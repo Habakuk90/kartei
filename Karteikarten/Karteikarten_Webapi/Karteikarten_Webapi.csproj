@@ -241,7 +241,6 @@
     <Compile Include="Karteikarten\Controllers\KarteiSessionController.cs" />
     <Compile Include="Karteikarten\Helper\AuthRepository.cs" />
     <Compile Include="Karteikarten\Helper\KarteiContext.cs" />
-    <Compile Include="Karteikarten\Helper\SessionRepository.cs" />
     <Compile Include="Karteikarten\Models\Karteikarte.cs" />
     <Compile Include="Karteikarten\Models\Login.cs" />
     <Compile Include="Karteikarten\Models\KarteiSession.cs" />

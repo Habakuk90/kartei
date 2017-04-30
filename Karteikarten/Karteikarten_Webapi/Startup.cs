@@ -16,7 +16,7 @@ namespace Karteikarten_Webapi
         {
             HttpConfiguration httpConfig = new HttpConfiguration();
 
-            Database.SetInitializer<KarteiContext>(new DropCreateDatabaseAlways<KarteiContext>());
+            Database.SetInitializer<KarteiContext>(new DropCreateDatabaseIfModelChanges<KarteiContext>());
 
             ConfigureWebApi(httpConfig);
             //Register WebApi Routes/Config

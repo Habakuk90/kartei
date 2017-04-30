@@ -49,7 +49,7 @@ var translateRequest = function () {
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.send(data);
     xhr.onreadystatechange = function () {
-// ready state iteration from 1 to 4 with error handling
+        // ready state iteration from 1 to 4 with error handling
         if (this.readyState == 4 && this.status == 200) {
             var response = this.responseText;
             console.log(response);
@@ -84,12 +84,31 @@ var translateButtonClick = function () {
 
 // end of translation Area
 
+var saveSessionButtonClick = function () {
+    $('.btn-save').on('click', function () {
+        sessionDbHelper.saveSession();
+    });
+}
+
+var showCurrentSessionClick = function () {
+    $('.show-current').on('click', function () {
+        sessionDbHelper.refreshView();
+
+    });
+}
+
+var clearCurrentSessionClick = function () {
+    $('.btn-clear').on('click', function () {
+        sessionDbHelper.clearSession();
+    });
+}
+
 
 //Question Area
 var questionButtonClick = function () {
     var $btnQuestion = $('.btn-question');
     $btnQuestion.on('click', function () {
-
+        sessionDbHelper.refreshView();
         $quest.addClass('is-active');
 
 
@@ -131,7 +150,7 @@ var storageCheck = function () {
                     session.push(cS.session[i]);
                 }
                 console.log(session);
-                counter++
+                counter++;
             }
         } else {
             console.info('Chrome Local Storage is empty!');
@@ -142,7 +161,7 @@ var storageCheck = function () {
 
 // will be fired 
 var fillSession = function () {
-
+    // var session = [];
     karteiKarte = {
         id: counter,
         InputLangShort: fromShort,
@@ -165,7 +184,7 @@ var fillSession = function () {
 
     //insert api call to store in database
 
-    
+
 }
 
 //end of Local Storage Area
@@ -184,76 +203,79 @@ $(document).ready(function () {
     storageCheck();
     questionButtonClick();
     closeButtonClick();
-
+    saveSessionButtonClick();
+    showCurrentSessionClick();
+    clearCurrentSessionClick();
+    clickHelper.navItemClick()
     // fakeFill();
 });
 
 
+var sessionDbHelper = {
+    refreshView: function () {
+        chrome.storage.local.get(function (cS) {
+            var $listContainer = $('.session-list');
+            var sessionListItems = $listContainer.children();
+
+            $(sessionListItems).each(function (index, listItem) {
+                $(listItem).html('');
+                if (cS.session && cS.session.length > index) {
+                    $(listItem).html(cS.session[index].InputWort + ' - ' + cS.session[index].OutputWort);
+                }
+            });
+
+        });
+    },
+    clearSession: function () {
+        chrome.storage.local.clear();
+        session = [];
+        sessionDbHelper.refreshView();
+    },
+    saveSession: function () {
+        chrome.storage.local.get(function (cS) {
+            $.ajax({
+                type: 'POST',
+                data: JSON.stringify(cS.session),
+                url: 'http://localhost:55845/api/session/create',
+                // url: 'http://local.karteikarten.de/api/session/create',
+                contentType: 'application/json',
+                success: function (a) {
+                    console.log(a);
+                }
+            });
+        });
+    }
+}
 
 
-// Fake Stuff
 
-// var karteiKarte0 = {
-//     id: 0,
-//     InputLangShort: 'de',
-//     InputLangLong: 'deutsch',
-//     InputWort: 'Hallo',
-//     OutputLangShort: 'en',
-//     OutputLangLong: 'englisch',
-//     OutputWort: 'Hello'
-// }
-// var karteiKarte1 = {
-//     id: 1,
-//     InputLangShort: 'de',
-//     InputLangLong: 'deutsch',
-//     InputWort: 'Katze',
-//     OutputLangShort: 'en',
-//     OutputLangLong: 'englisch',
-//     OutputWort: 'Cat'
-// };
-// var karteiKarte2 = {
-//     id: 2,
-//     InputLangShort: 'de',
-//     InputLangLong: 'deutsch',
-//     InputWort: 'Auto',
-//     OutputLangShort: 'en',
-//     OutputLangLong: 'englisch',
-//     OutputWort: 'Car'
-// };
-// var karteiKarte3 = {
-//     id: 3,
-//     InputLangShort: 'de',
-//     InputLangLong: 'deutsch',
-//     InputWort: 'Würfel',
-//     OutputLangShort: 'en',
-//     OutputLangLong: 'englisch',
-//     OutputWort: 'Cube'
-// };
-// var karteiKarte4 = {
-//     id: 4,
-//     InputLangShort: 'de',
-//     InputLangLong: 'deutsch',
-//     InputWort: 'Wunderbar',
-//     OutputLangShort: 'en',
-//     OutputLangLong: 'englisch',
-//     OutputWort: 'Wonderful'
-// };
+var clickHelper = {
+    navItemClick: function () {
+        var $navItems = $('.nav__item');
+        var $sessionArea = $('.session');
+        var $translateArea = $('.translator');
+        var $questionArea = $('.question');
 
+        $navItems.on('click', function (e) {
+            $('.nav__item.is-active').removeClass('is-active');
+            $(e.target).addClass('is-active');
+            var dataAttr = $(e.target).attr('data-nav-item');
+            var activeItem = $('.container').find('.is-active');
+            $(activeItem).removeClass('is-active');
+            switch(dataAttr) {
+                case 'translator':
+                    $translateArea.addClass('is-active');
+                    break;
+                case 'session':
+                    $sessionArea.addClass('is-active');
+                    sessionDbHelper.refreshView();
+                    break;
+                case 'question':
+                    $questionArea.addClass('is-active');
+                    break;
+                    
+            }
+        });
 
-// fake karteikarten
-// var fakeFill = function () {
-//     chrome.storage.local.clear();
-//     session = [];
-
-//     session.push(karteiKarte0, karteiKarte1, karteiKarte2, karteiKarte3, karteiKarte4);
-
-//     chrome.storage.local.set({
-//         session
-//     }, function () {
-//         console.log('fake fill done!');
-//     });
-
-//     chrome.storage.local.get(function (cS) {
-//         console.log(cS.session)
-//     })
-// }
+    }
+}

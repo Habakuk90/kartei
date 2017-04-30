@@ -21,7 +21,7 @@ button {
 }
 
 .question {
-    background-color: white;
+    /*background-color: white;
     width: 0;
     height: 100%;
     position: fixed;
@@ -31,12 +31,12 @@ button {
     left: 0;
     overflow-x: hidden;
     transition: width 0.5s;
-    transition: opacity 0.25s;
+    transition: opacity 0.25s;*/
 }
 
 .is-active {
-    width: 250px;
-    padding: 15px;
+    /*width: 250px;
+    padding: 15px;*/
     opacity: 1;
 }
 
@@ -104,4 +104,49 @@ button {
     position: absolute;
     left: 15px;
     top: 15px;
+}
+
+.btn {
+    margin-top: 5px;
+}
+
+/*Buttons End*/
+
+section {
+    display: none;
+}
+
+section.is-active {
+    display: block;
+}
+
+.session-list {
+    list-style: none;
+}
+
+.session .button-wrapper {
+    display:flex;
+    flex-direction: column;
+}
+
+nav>ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav__item {
+    width: 33.3333333%;
+    float: left;
+    text-align: center;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.nav__item.is-active {
+    border-bottom: 2px solid black;
+}
+
+.nav__item:hover {
+    border-bottom: 2px solid black;
 }

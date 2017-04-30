@@ -13,8 +13,8 @@ namespace Karteikarten_Webapi.Karteikarten.Models
         }
 
         public int KarteikarteId { get; set; }
-        public string Input { get; set; }
-        public string Output { get; set; }
+        public string InputWort { get; set; }
+        public string OutputWort { get; set; }
         public string InputLang { get; set; }
         public string OutputLang { get; set; }
 

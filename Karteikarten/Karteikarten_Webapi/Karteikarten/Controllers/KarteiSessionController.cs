@@ -30,8 +30,8 @@ namespace Karteikarten_Webapi.Karteikarten.Controllers
             foreach (var item in KarteiList)
             {
                 var karteikarteFromDatabase = db.Karteikarte
-                                                 .SingleOrDefault(kartei =>
-                                                     kartei.Input == item.Input &&
+                                                 .FirstOrDefault(kartei =>
+                                                     kartei.InputWort == item.InputWort &&
                                                      kartei.InputLang == item.InputLang &&
                                                      kartei.OutputLang == item.OutputLang);
 

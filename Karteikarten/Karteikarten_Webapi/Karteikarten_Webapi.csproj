@@ -308,9 +308,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Karteikarten\Views\_ViewStart.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Karteikarten\Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -320,12 +317,10 @@
     <Content Include="Karteikarten\Views\Shared\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Karteikarten\Views\Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Karteikarten\Views\Session\Session.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Karteikarten\Views\Session\Session.cshtml" />
+    <Content Include="Karteikarten\Views\Web.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

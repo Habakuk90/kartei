@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Karteikarten.WebApi.Karteikarten.Helper;
+using Karteikarten_Webapi.Karteikarten.Helper;
 namespace Karteikarten_Webapi.Karteikarten.Controllers
 {
     [RoutePrefix("api/Kartei")]

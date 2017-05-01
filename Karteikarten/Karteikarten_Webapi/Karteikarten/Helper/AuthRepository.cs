@@ -3,7 +3,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Threading.Tasks;
 using Karteikarten_Webapi.Karteikarten.Models;
-using Karteikarten.WebApi.Karteikarten.Helper;
 
 namespace Karteikarten_Webapi.Karteikarten.Helper
 {

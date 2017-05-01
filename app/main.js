@@ -86,20 +86,20 @@ var translateButtonClick = function () {
 
 var saveSessionButtonClick = function () {
     $('.btn-save').on('click', function () {
-        sessionDbHelper.saveSession();
+        sessionViewHelper.saveSession();
     });
 }
 
 var showCurrentSessionClick = function () {
     $('.show-current').on('click', function () {
-        sessionDbHelper.refreshView();
+        sessionViewHelper.refreshView();
 
     });
 }
 
 var clearCurrentSessionClick = function () {
     $('.btn-clear').on('click', function () {
-        sessionDbHelper.clearSession();
+        sessionViewHelper.clearSession();
     });
 }
 
@@ -108,7 +108,7 @@ var clearCurrentSessionClick = function () {
 var questionButtonClick = function () {
     var $btnQuestion = $('.btn-question');
     $btnQuestion.on('click', function () {
-        sessionDbHelper.refreshView();
+        sessionViewHelper.refreshView();
         $quest.addClass('is-active');
 
 
@@ -207,11 +207,10 @@ $(document).ready(function () {
     showCurrentSessionClick();
     clearCurrentSessionClick();
     clickHelper.navItemClick()
-    // fakeFill();
 });
 
 
-var sessionDbHelper = {
+var sessionViewHelper = {
     refreshView: function () {
         chrome.storage.local.get(function (cS) {
             var $listContainer = $('.session-list');
@@ -229,7 +228,7 @@ var sessionDbHelper = {
     clearSession: function () {
         chrome.storage.local.clear();
         session = [];
-        sessionDbHelper.refreshView();
+        sessionViewHelper.refreshView();
     },
     saveSession: function () {
         chrome.storage.local.get(function (cS) {
@@ -257,25 +256,25 @@ var clickHelper = {
         var $questionArea = $('.question');
 
         $navItems.on('click', function (e) {
-            $('.nav__item.is-active').removeClass('is-active');
-            $(e.target).addClass('is-active');
             var dataAttr = $(e.target).attr('data-nav-item');
             var activeItem = $('.container').find('.is-active');
+
+            $('.nav__item.is-active').removeClass('is-active');
+            $(e.target).addClass('is-active');
             $(activeItem).removeClass('is-active');
-            switch(dataAttr) {
+
+            switch (dataAttr) {
                 case 'translator':
                     $translateArea.addClass('is-active');
                     break;
                 case 'session':
                     $sessionArea.addClass('is-active');
-                    sessionDbHelper.refreshView();
+                    sessionViewHelper.refreshView();
                     break;
                 case 'question':
                     $questionArea.addClass('is-active');
                     break;
-                    
             }
         });
-
     }
 }

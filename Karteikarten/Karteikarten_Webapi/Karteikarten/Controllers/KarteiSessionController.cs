@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Karteikarten.WebApi.Karteikarten.Helper;
+using Karteikarten_Webapi.Karteikarten.Helper;
+using System.Web.Http.Results;
+using System.Web.Helpers;
 
 namespace Karteikarten_Webapi.Karteikarten.Controllers
 {
@@ -13,44 +15,53 @@ namespace Karteikarten_Webapi.Karteikarten.Controllers
     {
         KarteiContext db = new KarteiContext();
 
-        public IEnumerable<Karteikarte> GetSession(int id)
+        [Route("get")]
+        public IQueryable<Karteikarte> GetSession(int id)
         {
 
-            return new List<Karteikarte>();
+            var karteiSession = db.KarteiSession
+                             .Where(r => r.KarteiSessionId == id)
+                             .SelectMany(x => x.Karteikartes)
+                             .Distinct();
+            
+            return karteiSession;
         }
-        
+
         // Creates a Sessio with the Given List of Karteikarten
         [HttpPost]
         [Route("create")]
         public HttpResponseMessage CreateSession(List<Karteikarte> KarteiList)
         {
-            KarteiSession newSession = new KarteiSession(KarteiList);
+            KarteiSession newSession = new KarteiSession();
             List<Karteikarte> newKarteiList = new List<Karteikarte>();
-
-            foreach (var item in KarteiList)
+            
+            using (var context = new KarteiContext())
             {
-                var karteikarteFromDatabase = db.Karteikarte
-                                                 .FirstOrDefault(kartei =>
-                                                     kartei.InputWort == item.InputWort &&
-                                                     kartei.InputLang == item.InputLang &&
-                                                     kartei.OutputLang == item.OutputLang);
+                foreach (var item in KarteiList)
+                {
+                    var karteikarteFromDatabase = context.Karteikarte
+                                                     .FirstOrDefault(kartei =>
+                                                         kartei.InputWort == item.InputWort &&
+                                                         kartei.InputLangShort == item.InputLangShort &&
+                                                         kartei.OutputLangShort == item.OutputLangShort);
 
-                if (karteikarteFromDatabase != null)
-                {
-                    newKarteiList.Add(karteikarteFromDatabase);
+                    if (karteikarteFromDatabase != null)
+                    {
+                        newKarteiList.Add(karteikarteFromDatabase);
+                    }
+                    else
+                    {
+                        newKarteiList.Add(item);
+                    }
                 }
-                else
-                {
-                    newKarteiList.Add(item);
-                }
+
+                newSession.Karteikartes = newKarteiList;
+
+
+                context.KarteiSession.Add(newSession);
+                context.SaveChanges();
             }
-
-            newSession.Karteikartes = newKarteiList;
-
-            db.KarteiSession.Add(newSession);
-            db.SaveChanges();
-
-            return new HttpResponseMessage{StatusCode = HttpStatusCode.Created};
+            return new HttpResponseMessage { StatusCode = HttpStatusCode.Created };
 
         }
     }

@@ -7,7 +7,7 @@ namespace Karteikarten_Webapi.Karteikarten.Models
 {
     public class KarteiSession
     {
-        public KarteiSession(List<Karteikarte> karteikarten)
+        public KarteiSession()
         {
             //this.Karteikarten = karteikarten;
             this.Karteikartes = new HashSet<Karteikarte>();

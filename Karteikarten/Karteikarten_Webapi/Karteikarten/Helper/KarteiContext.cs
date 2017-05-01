@@ -2,7 +2,7 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 
-namespace Karteikarten.WebApi.Karteikarten.Helper
+namespace Karteikarten_Webapi.Karteikarten.Helper
 {
     public class KarteiContext : IdentityDbContext<IdentityUser>
     {

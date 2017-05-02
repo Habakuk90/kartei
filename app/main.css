@@ -15,31 +15,45 @@ button {
 
 .container {
     width: 250px;
-    min-height: 500px;
+    height: 500px;
     background-color: white;
-    padding: 30px 15px 15px 15px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .tab-header {
     border-bottom: 1px solid black;
-    height: 15%;
     margin-bottom: 15px;
+    display: inline-block;
+    min-height: 10%;
 }
 
-.tab-headline {
-    position: absolute;
-    top: 0;
-    left: 40%;
-}
+.tab-headline {}
 
 .tab-body {
-    height: 70%;
-     margin-bottom: 15px;
+    height: inherit;
+    margin-bottom: 15px;
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+    height: inherit;
+    justify-content: center;
 }
 
 .tab-footer {
     border-top: 1px solid black;
-    height: 15%;
+    display: inline-block;
+    min-height: 10%;
+}
+
+.translator,
+.session,
+.question {
+    height: inherit;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .question-counter {
@@ -48,7 +62,6 @@ button {
 
 .tab-body>p {
     text-align: center;
-    margin-bottom: 10px;
     width: 100%;
     min-height: 20px;
 }
@@ -63,12 +76,7 @@ button {
     width: 100%;
 }
 
-.question-header,
-.question-body,
-.question-footer {
-    width: 100%;
-    padding: 15px;
-}
+
 
 .is-active {
     width: 220px;
@@ -107,9 +115,11 @@ button {
 }
 
 
-/*.output-wrapper{
-
-}*/
+.questInputWord,
+.questOutputLang{
+    font-size: 20px;
+    font-weight: bold;
+}
 
 #search-button {
     margin-bottom: 0;
@@ -117,9 +127,8 @@ button {
 
 #search-output-select {}
 
-#search-input,
-#search-output,
-#search-button {
+.kk-input, 
+.kk-button {
     min-height: 35px;
     padding: 5px;
     background-color: white;
@@ -181,7 +190,7 @@ section {
 }
 
 section.is-active {
-    display: block;
+    display: flex;
 }
 
 .session-list {

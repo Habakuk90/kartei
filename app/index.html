@@ -46,7 +46,7 @@
 
             <div class="tab-body">
                 <div class="input-wrapper">
-                    <input type="text" id="search-input" class="" placeholder="Eingabe" />
+                    <input class="kk-input" type="text" id="search-input" class="" placeholder="Eingabe" />
                 </div>
                 <div class="select-wrapper">
                     <select id="search-input-select">
@@ -136,14 +136,14 @@
                         </optgroup>
                     </select>
                 </div>
-                <button id="search-button">
+                <button class="kk-button" id="search-button">
                 Suchen!
             </button>
 
 
                 <div class="output-wrapper">
                     <div id="loading"></div>
-                    <input type="text" id="search-output" class="" placeholder="Ausgabe">
+                    <input class="kk-input"  type="text" id="search-output" class="" placeholder="Ausgabe">
                 </div>
             </div>
 
@@ -158,43 +158,45 @@
             </div>
             <div class="tab-body">
                 <ul class="session-list">
-                <li>Session Empty!</li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
+                    <li>Session Empty!</li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
             </div>
             <div class="tab-footer">
                 <div class="button-wrapper">
-                <button class="btn btn-save">Save Session</button>
-                <button class="btn btn-clear">Clear Session</button>
+                    <button class="btn btn-save">Save Session</button>
+                    <button class="btn btn-clear">Clear Session</button>
+                </div>
             </div>
-            </div>
-            
-            
+
+
         </section>
         <section class="question">
             <div class="tab-header">
                 <h2 class="intro">Question Area</h2>
+
             </div>
             <div class="tab-body">
+
                 <p>Übersetze</p>
 
                 <p class="questInputWord"></p>
                 <p class=""> nach </p>
                 <p class="questOutputLang"></p>
-                <input id="questionInput" placeholder="schreibe hier rein">
-                <button id="questionInputBtn">test</button>
+                <input class="kk-input" id="questionInput" placeholder="schreibe hier rein">
+                <button class="kk-button" id="questionInputBtn">test</button>
             </div>
             <div class="tab-footer">
-
-
+                <p class="question-counter">noch <span></span> verbleibend</p>
+                <div></div>
             </div>
         </section>
     </div>

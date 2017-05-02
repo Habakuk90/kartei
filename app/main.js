@@ -16,6 +16,8 @@ var $input,
     format = '&format=',
     options = '&options=',
     callback = '&callback=',
+    $questCounter,
+    sessionCounter = 1;
     karteiKarte = {},
     session = [];
 
@@ -49,7 +51,7 @@ var translateRequest = function () {
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.send(data);
     xhr.onreadystatechange = function () {
-// ready state iteration from 1 to 4 with error handling
+        // ready state iteration from 1 to 4 with error handling
         if (this.readyState == 4 && this.status == 200) {
             var response = this.responseText;
             console.log(response);
@@ -103,6 +105,29 @@ var closeButtonClick = function () {
     })
 
 }
+var startButtonClick = function () {
+    var $btnStart = $('#question-start');
+    $btnStart.on('click', function () {
+        $btnStart.removeClass('.active');
+        $quest.addClass('is-active');
+        fakeFill();
+        fillQuestion();
+
+
+    });
+}
+
+var fillQuestion = function () {
+    $questCounter = $('.question-counter');
+    if (session.length > 0) {
+
+        $questCounter.text(sessionCounter + '/'+ session.length);
+        
+    } else {
+        message('you havent searched something!')
+    }
+}
+
 
 //end of Question Area
 
@@ -165,7 +190,7 @@ var fillSession = function () {
 
     //insert api call to store in database
 
-    
+
 }
 
 //end of Local Storage Area
@@ -184,76 +209,87 @@ $(document).ready(function () {
     storageCheck();
     questionButtonClick();
     closeButtonClick();
+    startButtonClick();
 
-    // fakeFill();
 });
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 // Fake Stuff
 
-// var karteiKarte0 = {
-//     id: 0,
-//     InputLangShort: 'de',
-//     InputLangLong: 'deutsch',
-//     InputWort: 'Hallo',
-//     OutputLangShort: 'en',
-//     OutputLangLong: 'englisch',
-//     OutputWort: 'Hello'
-// }
-// var karteiKarte1 = {
-//     id: 1,
-//     InputLangShort: 'de',
-//     InputLangLong: 'deutsch',
-//     InputWort: 'Katze',
-//     OutputLangShort: 'en',
-//     OutputLangLong: 'englisch',
-//     OutputWort: 'Cat'
-// };
-// var karteiKarte2 = {
-//     id: 2,
-//     InputLangShort: 'de',
-//     InputLangLong: 'deutsch',
-//     InputWort: 'Auto',
-//     OutputLangShort: 'en',
-//     OutputLangLong: 'englisch',
-//     OutputWort: 'Car'
-// };
-// var karteiKarte3 = {
-//     id: 3,
-//     InputLangShort: 'de',
-//     InputLangLong: 'deutsch',
-//     InputWort: 'Würfel',
-//     OutputLangShort: 'en',
-//     OutputLangLong: 'englisch',
-//     OutputWort: 'Cube'
-// };
-// var karteiKarte4 = {
-//     id: 4,
-//     InputLangShort: 'de',
-//     InputLangLong: 'deutsch',
-//     InputWort: 'Wunderbar',
-//     OutputLangShort: 'en',
-//     OutputLangLong: 'englisch',
-//     OutputWort: 'Wonderful'
-// };
+var karteiKarte0 = {
+    id: 0,
+    InputLangShort: 'de',
+    InputLangLong: 'deutsch',
+    InputWort: 'Hallo',
+    OutputLangShort: 'en',
+    OutputLangLong: 'englisch',
+    OutputWort: 'Hello'
+}
+var karteiKarte1 = {
+    id: 1,
+    InputLangShort: 'de',
+    InputLangLong: 'deutsch',
+    InputWort: 'Katze',
+    OutputLangShort: 'en',
+    OutputLangLong: 'englisch',
+    OutputWort: 'Cat'
+};
+var karteiKarte2 = {
+    id: 2,
+    InputLangShort: 'de',
+    InputLangLong: 'deutsch',
+    InputWort: 'Auto',
+    OutputLangShort: 'en',
+    OutputLangLong: 'englisch',
+    OutputWort: 'Car'
+};
+var karteiKarte3 = {
+    id: 3,
+    InputLangShort: 'de',
+    InputLangLong: 'deutsch',
+    InputWort: 'Würfel',
+    OutputLangShort: 'en',
+    OutputLangLong: 'englisch',
+    OutputWort: 'Cube'
+};
+var karteiKarte4 = {
+    id: 4,
+    InputLangShort: 'de',
+    InputLangLong: 'deutsch',
+    InputWort: 'Wunderbar',
+    OutputLangShort: 'en',
+    OutputLangLong: 'englisch',
+    OutputWort: 'Wonderful'
+};
 
 
-// fake karteikarten
-// var fakeFill = function () {
-//     chrome.storage.local.clear();
-//     session = [];
+//fake karteikarten
+var fakeFill = function () {
+    chrome.storage.local.clear();
+    session = [];
 
-//     session.push(karteiKarte0, karteiKarte1, karteiKarte2, karteiKarte3, karteiKarte4);
+    session.push(karteiKarte0, karteiKarte1, karteiKarte2, karteiKarte3, karteiKarte4);
 
-//     chrome.storage.local.set({
-//         session
-//     }, function () {
-//         console.log('fake fill done!');
-//     });
+    chrome.storage.local.set({
+        session
+    }, function () {
+        console.log('fake fill done!');
+    });
 
-//     chrome.storage.local.get(function (cS) {
-//         console.log(cS.session)
-//     })
-// }
+    chrome.storage.local.get(function (cS) {
+        console.log(cS.session)
+    })
+}

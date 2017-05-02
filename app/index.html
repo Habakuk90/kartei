@@ -28,10 +28,32 @@
 <body>
     <div class="container">
         <div class="question">
-            <p> Test Content</p>
-            <p class="btn-close">Translator ></p>
+            <div class="question-header">
+                <p class="question-headline">Abfrage</p>
+                <p class="btn-close">Translator ></p>
+                <p class="question-counter"></p>
+            </div>
+            <div class="question-body">
+                <p>Übersetze</p>
+
+                <p class="questInputWord"></p>
+                <p class=""> nach </p>
+                <p class="questOutputLang"></p>
+                <input id="questionInput" placeholder="schreibe hier rein">
+                <button id="questionInputBtn">test</button>
+            </div>
+            <div class="question-footer">
+
+
+            </div>
+
         </div>
         <div class="translator">
+            <div class="translator-popup active">
+                <p>willst du dich abfragen ?</p>
+                <button class="translator-popup-btn" id="question-start">start</button>
+                <button class="translator-popup-btn" id="question-later">später</button>
+            </div>
             <p class="intro">Kartei-Karten Übersetzer</p>
             <p class="btn-question">
                 < Frag mich!</p>

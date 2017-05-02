@@ -34,9 +34,54 @@ button {
     transition: opacity 0.25s;
 }
 
-.is-active {
-    width: 250px;
+.question-header {
+    border-bottom: 1px solid black;
+    height: 15%;
+}
+
+.question-headline {
+    position: absolute;
+    top: 0;
+    left: 40%;
+}
+
+.question-counter {
+    text-align: center;
+}
+
+.question-body {
+    height: 70%;
+}
+
+.question-body>p {
+    text-align: center;
+    margin-bottom: 10px;
+    width:100%;
+    min-height: 20px;
+}
+#questionInput{
+    width:100%;
+}
+#questionInputBtn{
+    padding:5px;
+    margin: 15px 0;
+    width:100%; 
+}
+
+.question-footer {
+    border-top: 1px solid black;
+    height: 15%;
+}
+
+.question-header,
+.question-body,
+.question-footer {
+    width: 100%;
     padding: 15px;
+}
+
+.is-active {
+    width: 265px;
     opacity: 1;
 }
 
@@ -105,3 +150,37 @@ button {
     left: 15px;
     top: 15px;
 }
+
+.btn {}
+
+.translator-popup-btn {
+    float: left;
+    width: 50%;
+}
+
+
+/*popups*/
+
+.translator-popup {
+    display: none;
+    background-color: green;
+    padding: 15px;
+    width: 50%;
+    position: absolute;
+    top: 40%;
+    left: 25%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+}
+
+.translator-popup.active {
+    display: block;
+    text-align: center;
+    opacity: 1;
+}
+
+.translator-popup>p {
+    color: white;
+}
+
+.translator-popup>button {}

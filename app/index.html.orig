@@ -34,18 +34,44 @@
         </ul>
     </nav>
     <div class="container">
+<<<<<<< HEAD
+        <div class="question">
+            <div class="question-header">
+                <p class="question-headline">Abfrage</p>
+                <p class="btn-close">Translator ></p>
+                <p class="question-counter"></p>
+            </div>
+            <div class="question-body">
+                <p>Übersetze</p>
 
+                <p class="questInputWord"></p>
+                <p class=""> nach </p>
+                <p class="questOutputLang"></p>
+                <input id="questionInput" placeholder="schreibe hier rein">
+                <button id="questionInputBtn">test</button>
+            </div>
+            <div class="question-footer">
+
+
+            </div>
+
+        </div>
+        <div class="translator">
             <div class="translator-popup active">
                 <p>willst du dich abfragen ?</p>
                 <button class="translator-popup-btn" id="question-start">start</button>
                 <button class="translator-popup-btn" id="question-later">später</button>
             </div>
+=======
+
+        <section class="translator is-active">
+>>>>>>> develop
             <p class="intro">Kartei-Karten Übersetzer</p>
 
 
-                    <div class="input-wrapper">
+            <div class="input-wrapper">
                 <input type="text" id="search-input" class="" placeholder="Eingabe" />
-                        <select id="search-input-select">
+                <select id="search-input-select">
                 <optgroup label="meist genutzte Sprachen">
                     <option value="de">Deutsch</option>
                     <option value="en">Englisch</option>
@@ -87,10 +113,10 @@
                 </optgroup>
             </select>
 
-                        <p class="spacer">zu</p>
+                <p class="spacer">zu</p>
 
 
-                        <select id="search-output-select">
+                <select id="search-output-select">
                 <optgroup label="meist genutzte Sprachen">
                     <option value="de">Deutsch</option>
                     <option value="en">Englisch</option>
@@ -131,15 +157,15 @@
                     <option value="be">Weißrussisch</option>
                 </optgroup>
             </select>
-                        <button id="search-button">
+                <button id="search-button">
                 Suchen!
             </button>
 
-                    </div>
-                    <div class="output-wrapper">
-                        <div id="loading"></div>
-                        <input type="text" id="search-output" class="" placeholder="Ausgabe">
-                    </div>
+            </div>
+            <div class="output-wrapper">
+                <div id="loading"></div>
+                <input type="text" id="search-output" class="" placeholder="Ausgabe">
+            </div>
         </section>
         <section class="session">
             <ul class="session-list">
@@ -157,28 +183,10 @@
             <div class="button-wrapper">
                 <button class="btn btn-save">Save Session</button>
                 <button class="btn btn-clear">Clear Session</button>
-        </div>
+            </div>
         </section>
         <section class="question">
             <h1>Question Area</h1>
-            <div class="question-header">
-                <p class="question-headline">Abfrage</p>
-                <p class="btn-close">Translator ></p>
-                <p class="question-counter"></p>
-            </div>
-            <div class="question-body">
-                <p>Übersetze</p>
-
-                <p class="questInputWord"></p>
-                <p class=""> nach </p>
-                <p class="questOutputLang"></p>
-                <input id="questionInput" placeholder="schreibe hier rein">
-                <button id="questionInputBtn">test</button>
-            </div>
-            <div class="question-footer">
-
-
-            </div>
         </section>
     </div>
 

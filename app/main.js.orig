@@ -18,7 +18,7 @@ var $input,
     callback = '&callback=',
     $questCounter,
     sessionCounter = 1;
-karteiKarte = {},
+    karteiKarte = {},
     session = [];
 
 // Counter for numeration for Cards and marker for existent cards in the storage  
@@ -140,8 +140,8 @@ var fillQuestion = function () {
     $questCounter = $('.question-counter');
     if (session.length > 0) {
 
-        $questCounter.text(sessionCounter + '/' + session.length);
-
+        $questCounter.text(sessionCounter + '/'+ session.length);
+        
     } else {
         message('you havent searched something!')
     }
@@ -216,6 +216,9 @@ var fillSession = function () {
 
 
 
+
+
+
 //jqstuff 
 $(document).ready(function () {
     if ($('.translator').length) {
@@ -225,11 +228,15 @@ $(document).ready(function () {
     storageCheck();
     questionButtonClick();
     closeButtonClick();
+<<<<<<< HEAD
     startButtonClick();
+
+=======
     saveSessionButtonClick();
     showCurrentSessionClick();
     clearCurrentSessionClick();
     clickHelper.navItemClick()
+>>>>>>> develop
 });
 
 
@@ -245,7 +252,6 @@ var sessionViewHelper = {
                     $(listItem).html(cS.session[index].InputWort + ' - ' + cS.session[index].OutputWort);
                 }
             });
-
 
         });
     },
@@ -269,66 +275,102 @@ var sessionViewHelper = {
         });
     }
 }
+
+
+
+<<<<<<< HEAD
+
+
+
+
+
+
+
+
+
+
+
 // Fake Stuff
 
-// var karteiKarte0 = {
-//     id: 0,
-//     InputLangShort: 'de',
-//     InputLangLong: 'deutsch',
-//     InputWort: 'Hallo',
-//     OutputLangShort: 'en',
-//     OutputLangLong: 'englisch',
-//     OutputWort: 'Hello'
-// }
-// var karteiKarte1 = {
-//     id: 1,
-//     InputLangShort: 'de',
-//     InputLangLong: 'deutsch',
-//     InputWort: 'Katze',
-//     OutputLangShort: 'en',
-//     OutputLangLong: 'englisch',
-//     OutputWort: 'Cat'
-// };
-// var karteiKarte2 = {
-//     id: 2,
-//     InputLangShort: 'de',
-//     InputLangLong: 'deutsch',
-//     InputWort: 'Auto',
-//     OutputLangShort: 'en',
-//     OutputLangLong: 'englisch',
-//     OutputWort: 'Car'
-// };
-// var karteiKarte3 = {
-//     id: 3,
-//     InputLangShort: 'de',
-//     InputLangLong: 'deutsch',
-//     InputWort: 'W�rfel',
-//     OutputLangShort: 'en',
-//     OutputLangLong: 'englisch',
-//     OutputWort: 'Cube'
-// };
-// var karteiKarte4 = {
-//     id: 4,
-//     InputLangShort: 'de',
-//     InputLangLong: 'deutsch',
-//     InputWort: 'Wunderbar',
-//     OutputLangShort: 'en',
-//     OutputLangLong: 'englisch',
-//     OutputWort: 'Wonderful'
-// };
+var karteiKarte0 = {
+    id: 0,
+    InputLangShort: 'de',
+    InputLangLong: 'deutsch',
+    InputWort: 'Hallo',
+    OutputLangShort: 'en',
+    OutputLangLong: 'englisch',
+    OutputWort: 'Hello'
+}
+var karteiKarte1 = {
+    id: 1,
+    InputLangShort: 'de',
+    InputLangLong: 'deutsch',
+    InputWort: 'Katze',
+    OutputLangShort: 'en',
+    OutputLangLong: 'englisch',
+    OutputWort: 'Cat'
+};
+var karteiKarte2 = {
+    id: 2,
+    InputLangShort: 'de',
+    InputLangLong: 'deutsch',
+    InputWort: 'Auto',
+    OutputLangShort: 'en',
+    OutputLangLong: 'englisch',
+    OutputWort: 'Car'
+};
+var karteiKarte3 = {
+    id: 3,
+    InputLangShort: 'de',
+    InputLangLong: 'deutsch',
+    InputWort: 'Würfel',
+    OutputLangShort: 'en',
+    OutputLangLong: 'englisch',
+    OutputWort: 'Cube'
+};
+var karteiKarte4 = {
+    id: 4,
+    InputLangShort: 'de',
+    InputLangLong: 'deutsch',
+    InputWort: 'Wunderbar',
+    OutputLangShort: 'en',
+    OutputLangLong: 'englisch',
+    OutputWort: 'Wonderful'
+};
 
+
+//fake karteikarten
+var fakeFill = function () {
+    chrome.storage.local.clear();
+    session = [];
+
+    session.push(karteiKarte0, karteiKarte1, karteiKarte2, karteiKarte3, karteiKarte4);
+
+    chrome.storage.local.set({
+        session
+    }, function () {
+        console.log('fake fill done!');
+    });
+
+    chrome.storage.local.get(function (cS) {
+        console.log(cS.session)
+    })
+=======
 var clickHelper = {
     navItemClick: function () {
         var $navItems = $('.nav__item');
         var $sessionArea = $('.session');
         var $translateArea = $('.translator');
         var $questionArea = $('.question');
+
         $navItems.on('click', function (e) {
             var dataAttr = $(e.target).attr('data-nav-item');
             var activeItem = $('.container').find('.is-active');
+
             $('.nav__item.is-active').removeClass('is-active');
             $(e.target).addClass('is-active');
             $(activeItem).removeClass('is-active');
+
             switch (dataAttr) {
                 case 'translator':
                     $translateArea.addClass('is-active');
@@ -343,19 +385,5 @@ var clickHelper = {
             }
         });
     }
+>>>>>>> develop
 }
-
-// fake karteikarten
-// var fakeFill = function () {
-//     chrome.storage.local.clear();
-//     session = [];
-//     session.push(karteiKarte0, karteiKarte1, karteiKarte2, karteiKarte3, karteiKarte4);
-//     chrome.storage.local.set({
-//         session
-//     }, function () {
-//         console.log('fake fill done!');
-//     });
-//     chrome.storage.local.get(function (cS) {
-//         console.log(cS.session)
-//     })
-// }

@@ -15,9 +15,24 @@ button {
 
 .container {
     width: 250px;
-    height: 400px;
+    height: auto;
     background-color: white;
     padding: 30px 15px 15px 15px;
+}
+
+<<<<<<< HEAD
+.question {
+    background-color: white;
+    width: 0;
+    height: 100%;
+    position: fixed;
+    opacity: 0;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    transition: width 0.5s;
+    transition: opacity 0.25s;
 }
 
 .question-header {
@@ -42,18 +57,16 @@ button {
 .question-body>p {
     text-align: center;
     margin-bottom: 10px;
-    width: 100%;
+    width:100%;
     min-height: 20px;
 }
-
-#questionInput {
-    width: 100%;
+#questionInput{
+    width:100%;
 }
-
-#questionInputBtn {
-    padding: 5px;
+#questionInputBtn{
+    padding:5px;
     margin: 15px 0;
-    width: 100%;
+    width:100%; 
 }
 
 .question-footer {
@@ -69,10 +82,14 @@ button {
 }
 
 .is-active {
-    width: 220px;
+    width: 265px;
+=======
+.is-active {
+    /*width: 250px;
+    padding: 15px;*/
+>>>>>>> develop
     opacity: 1;
 }
-
 
 /*Components*/
 
@@ -127,6 +144,11 @@ button {
 
 /*Buttons*/
 
+.btn-close {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
 
 .btn-question {
     position: absolute;
@@ -134,6 +156,7 @@ button {
     top: 15px;
 }
 
+<<<<<<< HEAD
 .btn {}
 
 .translator-popup-btn {
@@ -167,11 +190,10 @@ button {
 }
 
 .translator-popup>button {}
-
+=======
 .btn {
     margin-top: 5px;
 }
-
 
 /*Buttons End*/
 
@@ -188,7 +210,7 @@ section.is-active {
 }
 
 .session .button-wrapper {
-    display: flex;
+    display:flex;
     flex-direction: column;
 }
 
@@ -213,3 +235,4 @@ nav>ul {
 .nav__item:hover {
     border-bottom: 2px solid black;
 }
+>>>>>>> develop

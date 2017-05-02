@@ -34,12 +34,38 @@
         </ul>
     </nav>
     <div class="container">
-        <section class="translator">
-            <div class="translator-popup">
+<<<<<<< HEAD
+        <div class="question">
+            <div class="question-header">
+                <p class="question-headline">Abfrage</p>
+                <p class="btn-close">Translator ></p>
+                <p class="question-counter"></p>
+            </div>
+            <div class="question-body">
+                <p>Übersetze</p>
+
+                <p class="questInputWord"></p>
+                <p class=""> nach </p>
+                <p class="questOutputLang"></p>
+                <input id="questionInput" placeholder="schreibe hier rein">
+                <button id="questionInputBtn">test</button>
+            </div>
+            <div class="question-footer">
+
+
+            </div>
+
+        </div>
+        <div class="translator">
+            <div class="translator-popup active">
                 <p>willst du dich abfragen ?</p>
                 <button class="translator-popup-btn" id="question-start">start</button>
                 <button class="translator-popup-btn" id="question-later">später</button>
             </div>
+=======
+
+        <section class="translator is-active">
+>>>>>>> develop
             <p class="intro">Kartei-Karten Übersetzer</p>
 
 
@@ -135,11 +161,11 @@
                 Suchen!
             </button>
 
-
-                <div class="output-wrapper">
-                    <div id="loading"></div>
-                    <input type="text" id="search-output" class="" placeholder="Ausgabe">
-                </div>
+            </div>
+            <div class="output-wrapper">
+                <div id="loading"></div>
+                <input type="text" id="search-output" class="" placeholder="Ausgabe">
+            </div>
         </section>
         <section class="session">
             <ul class="session-list">
@@ -161,23 +187,8 @@
         </section>
         <section class="question">
             <h1>Question Area</h1>
-            <div class="question-header">
-            </div>
-            <div class="question-body">
-                <p>Übersetze</p>
-
-                <p class="questInputWord"></p>
-                <p class=""> nach </p>
-                <p class="questOutputLang"></p>
-                <input id="questionInput" placeholder="schreibe hier rein">
-                <button id="questionInputBtn">test</button>
-            </div>
-            <div class="question-footer">
-
-
-            </div>
         </section>
-        </div>
+    </div>
 
 </body>
 

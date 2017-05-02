@@ -15,7 +15,7 @@ button {
 
 .container {
     width: 250px;
-    height: auto;
+    height: 400px;
     background-color: white;
     padding: 30px 15px 15px 15px;
 }
@@ -69,7 +69,7 @@ button {
 }
 
 .is-active {
-    width: 265px;
+    width: 220px;
     opacity: 1;
 }
 
@@ -127,11 +127,6 @@ button {
 
 /*Buttons*/
 
-.btn-close {
-    position: absolute;
-    right: 15px;
-    top: 15px;
-}
 
 .btn-question {
     position: absolute;

@@ -34,103 +34,108 @@
         </ul>
     </nav>
     <div class="container">
-        <section class="translator">
+        <section class="translator is-active">
             <div class="translator-popup">
                 <p>willst du dich abfragen ?</p>
                 <button class="translator-popup-btn" id="question-start">start</button>
                 <button class="translator-popup-btn" id="question-later">später</button>
             </div>
-            <p class="intro">Kartei-Karten Übersetzer</p>
+            <div class="tab-header">
+                <h2 class="intro">Kartei-Karten Übersetzer</h2>
+            </div>
 
-
-            <div class="input-wrapper">
-                <input type="text" id="search-input" class="" placeholder="Eingabe" />
-                <select id="search-input-select">
-                <optgroup label="meist genutzte Sprachen">
-                    <option value="de">Deutsch</option>
-                    <option value="en">Englisch</option>
-                    <option value="fr">Französisch</option>
-                    <option value="it">Italienisch</option>
-                    <option value="ja">Japanisch</option>
-                    <option value="la">Latein</option>
-                    <option value="pl">Polnisch</option>
-                    <option value="ru">Russisch</option>
-                    <option value="es">Spanisch</option>
-                </optgroup>
-                <optgroup label="other Languages">
-                    <option value="sq">Albanisch</option>
-                    <option value="ar">Arabisch</option>
-                    <option value="hy">Armenisch</option>
-                    <option value="bg">Bulgarisch</option>
-                    <option value="zh">Chinesisch</option>
-                    <option value="da">Dänisch</option>
-                    <option value="eo">Esperanto</option>
-                    <option value="fi">Finnisch</option>
-                    <option value="el">Griechisch</option>
-                    <option value="ga">Irisch</option>
-                    <option value="ko">Koreanisch</option>
-                    <option value="hr">Kroatisch</option>
-                    <option value="mn">Mongolisch</option>
-                    <option value="nl">Niederländisch</option>  
-                    <option value="pt">Portugiesisch</option>
-                    <option value="ro">Rumänisch</option>
-                    <option value="sv">Schwedisch</option>
-                    <option value="sr">Serbisch</option>
-                    <option value="sk">Slowakisch</option>
-                    <option value="sl">Slowenisch</option>
-                    <option value="th">Thailändisch</option>
-                    <option value="cs">Tschechisch</option>
-                    <option value="tr">Türkisch</option>
-                    <option value="uk">Ukrainisch</option>
-                    <option value="hu">Ungarisch</option>
-                    <option value="be">Weißrussisch</option>
-                </optgroup>
-            </select>
-
+            <div class="tab-body">
+                <div class="input-wrapper">
+                    <input type="text" id="search-input" class="" placeholder="Eingabe" />
+                </div>
+                <div class="select-wrapper">
+                    <select id="search-input-select">
+                        <optgroup label="meist genutzte Sprachen">
+                            <option value="de">Deutsch</option>
+                            <option value="en">Englisch</option>
+                            <option value="fr">Französisch</option>
+                            <option value="it">Italienisch</option>
+                            <option value="ja">Japanisch</option>
+                            <option value="la">Latein</option>
+                            <option value="pl">Polnisch</option>
+                            <option value="ru">Russisch</option>
+                            <option value="es">Spanisch</option>
+                        </optgroup>
+                        <optgroup label="other Languages">
+                            <option value="sq">Albanisch</option>
+                            <option value="ar">Arabisch</option>
+                            <option value="hy">Armenisch</option>
+                            <option value="bg">Bulgarisch</option>
+                            <option value="zh">Chinesisch</option>
+                            <option value="da">Dänisch</option>
+                            <option value="eo">Esperanto</option>
+                            <option value="fi">Finnisch</option>
+                            <option value="el">Griechisch</option>
+                            <option value="ga">Irisch</option>
+                            <option value="ko">Koreanisch</option>
+                            <option value="hr">Kroatisch</option>
+                            <option value="mn">Mongolisch</option>
+                            <option value="nl">Niederländisch</option>  
+                            <option value="pt">Portugiesisch</option>
+                            <option value="ro">Rumänisch</option>
+                            <option value="sv">Schwedisch</option>
+                            <option value="sr">Serbisch</option>
+                            <option value="sk">Slowakisch</option>
+                            <option value="sl">Slowenisch</option>
+                            <option value="th">Thailändisch</option>
+                            <option value="cs">Tschechisch</option>
+                            <option value="tr">Türkisch</option>
+                            <option value="uk">Ukrainisch</option>
+                            <option value="hu">Ungarisch</option>
+                            <option value="be">Weißrussisch</option>
+                        </optgroup>
+                    </select>
+                </div>
                 <p class="spacer">zu</p>
 
-
-                <select id="search-output-select">
-                <optgroup label="meist genutzte Sprachen">
-                    <option value="de">Deutsch</option>
-                    <option value="en">Englisch</option>
-                    <option value="fr">Französisch</option>
-                    <option value="it">Italienisch</option>
-                    <option value="ja">Japanisch</option>
-                    <option value="la">Latein</option>
-                    <option value="pl">Polnisch</option>
-                    <option value="ru">Russisch</option>
-                    <option value="es">Spanisch</option>
-                </optgroup>
-                <optgroup label="other Languages">
-                    <option value="sq">Albanisch</option>
-                    <option value="ar">Arabisch</option>
-                    <option value="hy">Armenisch</option>
-                    <option value="bg">Bulgarisch</option>
-                    <option value="zh">Chinesisch</option>
-                    <option value="da">Dänisch</option>
-                    <option value="eo">Esperanto</option>
-                    <option value="fi">Finnisch</option>
-                    <option value="el">Griechisch</option>
-                    <option value="ga">Irisch</option>
-                    <option value="ko">Koreanisch</option>
-                    <option value="hr">Kroatisch</option>
-                    <option value="mn">Mongolisch</option>
-                    <option value="nl">Niederländisch</option>
-                    <option value="pt">Portugiesisch</option>
-                    <option value="ro">Rumänisch</option>
-                    <option value="sv">Schwedisch</option>
-                    <option value="sr">Serbisch</option>
-                    <option value="sk">Slowakisch</option>
-                    <option value="sl">Slowenisch</option>
-                    <option value="th">Thailändisch</option>
-                    <option value="cs">Tschechisch</option>
-                    <option value="tr">Türkisch</option>
-                    <option value="uk">Ukrainisch</option>
-                    <option value="hu">Ungarisch</option>
-                    <option value="be">Weißrussisch</option>
-                </optgroup>
-            </select>
+                <div class="select-wrapper">
+                    <select id="search-output-select">
+                        <optgroup label="meist genutzte Sprachen">
+                            <option value="de">Deutsch</option>
+                            <option value="en">Englisch</option>
+                            <option value="fr">Französisch</option>
+                            <option value="it">Italienisch</option>
+                            <option value="ja">Japanisch</option>
+                            <option value="la">Latein</option>
+                            <option value="pl">Polnisch</option>
+                            <option value="ru">Russisch</option>
+                            <option value="es">Spanisch</option>
+                        </optgroup>
+                        <optgroup label="other Languages">
+                            <option value="sq">Albanisch</option>
+                            <option value="ar">Arabisch</option>
+                            <option value="hy">Armenisch</option>
+                            <option value="bg">Bulgarisch</option>
+                            <option value="zh">Chinesisch</option>
+                            <option value="da">Dänisch</option>
+                            <option value="eo">Esperanto</option>
+                            <option value="fi">Finnisch</option>
+                            <option value="el">Griechisch</option>
+                            <option value="ga">Irisch</option>
+                            <option value="ko">Koreanisch</option>
+                            <option value="hr">Kroatisch</option>
+                            <option value="mn">Mongolisch</option>
+                            <option value="nl">Niederländisch</option>
+                            <option value="pt">Portugiesisch</option>
+                            <option value="ro">Rumänisch</option>
+                            <option value="sv">Schwedisch</option>
+                            <option value="sr">Serbisch</option>
+                            <option value="sk">Slowakisch</option>
+                            <option value="sl">Slowenisch</option>
+                            <option value="th">Thailändisch</option>
+                            <option value="cs">Tschechisch</option>
+                            <option value="tr">Türkisch</option>
+                            <option value="uk">Ukrainisch</option>
+                            <option value="hu">Ungarisch</option>
+                            <option value="be">Weißrussisch</option>
+                        </optgroup>
+                    </select>
+                </div>
                 <button id="search-button">
                 Suchen!
             </button>
@@ -140,9 +145,19 @@
                     <div id="loading"></div>
                     <input type="text" id="search-output" class="" placeholder="Ausgabe">
                 </div>
+            </div>
+
+            <div class="tab-footer">
+
+
+            </div>
         </section>
         <section class="session">
-            <ul class="session-list">
+            <div class="tab-header">
+                <h2 class="intro">Session</h2>
+            </div>
+            <div class="tab-body">
+                <ul class="session-list">
                 <li>Session Empty!</li>
                 <li></li>
                 <li></li>
@@ -154,16 +169,21 @@
                 <li></li>
                 <li></li>
             </ul>
-            <div class="button-wrapper">
+            </div>
+            <div class="tab-footer">
+                <div class="button-wrapper">
                 <button class="btn btn-save">Save Session</button>
                 <button class="btn btn-clear">Clear Session</button>
             </div>
+            </div>
+            
+            
         </section>
         <section class="question">
-            <h1>Question Area</h1>
-            <div class="question-header">
+            <div class="tab-header">
+                <h2 class="intro">Question Area</h2>
             </div>
-            <div class="question-body">
+            <div class="tab-body">
                 <p>Übersetze</p>
 
                 <p class="questInputWord"></p>
@@ -172,12 +192,12 @@
                 <input id="questionInput" placeholder="schreibe hier rein">
                 <button id="questionInputBtn">test</button>
             </div>
-            <div class="question-footer">
+            <div class="tab-footer">
 
 
             </div>
         </section>
-        </div>
+    </div>
 
 </body>
 

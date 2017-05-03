@@ -7,34 +7,36 @@ using System.Web.Http;
 using Karteikarten_Webapi.Karteikarten.Helper;
 using System.Web.Http.Results;
 using System.Web.Helpers;
+using System;
 
 namespace Karteikarten_Webapi.Karteikarten.Controllers
 {
     [RoutePrefix("api/session")]
     public class KarteiSessionController : ApiController
     {
-        KarteiContext db = new KarteiContext();
-
         [Route("get")]
-        public IQueryable<Karteikarte> GetSession(int id)
+        public KarteiSession GetSession(int id)
         {
+            KarteiSession karteiSession = new KarteiSession();
 
-            var karteiSession = db.KarteiSession
-                             .Where(r => r.KarteiSessionId == id)
-                             .SelectMany(x => x.Karteikartes)
-                             .Distinct();
-            
+            using (var context = new KarteiContext())
+            {
+                karteiSession = context.KarteiSession.FirstOrDefault(t => t.KarteiSessionId == id);
+                karteiSession.Karteikartes = context.KarteiSession
+                                 .Where(session => session.KarteiSessionId == id).SelectMany(session => session.Karteikartes)
+                                 .Distinct().ToList();
+            }
             return karteiSession;
         }
 
         // Creates a Sessio with the Given List of Karteikarten
         [HttpPost]
         [Route("create")]
-        public HttpResponseMessage CreateSession(List<Karteikarte> KarteiList)
+        public void CreateSession(List<Karteikarte> KarteiList)
         {
             KarteiSession newSession = new KarteiSession();
             List<Karteikarte> newKarteiList = new List<Karteikarte>();
-            
+
             using (var context = new KarteiContext())
             {
                 foreach (var item in KarteiList)
@@ -56,13 +58,15 @@ namespace Karteikarten_Webapi.Karteikarten.Controllers
                 }
 
                 newSession.Karteikartes = newKarteiList;
+                if (string.IsNullOrWhiteSpace(newSession.Name))
+                {
+                    int karteiSessionCount = context.KarteiSession.Count(gaga => gaga.KarteiSessionId != 0);
 
-
+                    newSession.Name = "Default" + (karteiSessionCount + 1);
+                }
                 context.KarteiSession.Add(newSession);
                 context.SaveChanges();
             }
-            return new HttpResponseMessage { StatusCode = HttpStatusCode.Created };
-
         }
     }
 }

@@ -30,7 +30,7 @@
         <ul>
             <li class="nav__item is-active" data-nav-item="translator">Translate</li>
             <li class="nav__item" data-nav-item="session">Session</li>
-            <li class="nav__item" data-nav-item="question">Frag Mich!</li>
+            <li class="nav__item" id="question-tab" data-nav-item="question">Frag Mich!</li>
         </ul>
     </nav>
     <div class="container">
@@ -143,7 +143,7 @@
 
                 <div class="output-wrapper">
                     <div id="loading"></div>
-                    <input class="kk-input"  type="text" id="search-output" class="" placeholder="Ausgabe">
+                    <input class="kk-input" type="text" id="search-output" class="" placeholder="Ausgabe">
                 </div>
             </div>
 
@@ -180,17 +180,33 @@
 
         </section>
         <section class="question">
+            <div class="question-popup">
+                <p>Du hast leider keine Karteikarten</p>
+                <button>okay</button>
+            </div>
             <div class="tab-header">
                 <h2 class="intro">Question Area</h2>
 
             </div>
             <div class="tab-body">
+                <div class="flip-container unflip">
+                    <div class="flipper">
+                        <div class="front">
+                            <p>Übersetze</p>
 
-                <p>Übersetze</p>
+                            <p class="questInputWord"></p>
+                            <p class=""> nach </p>
+                            <p class="questOutputLang"></p>
+                        </div>
+                        <div class="question-awnser-right">
+                            richtig :)
+                        </div>
+                        <div class="question-awnser-wrong">
+                            falsch :(
+                        </div>
+                    </div>
+                </div>
 
-                <p class="questInputWord"></p>
-                <p class=""> nach </p>
-                <p class="questOutputLang"></p>
                 <input class="kk-input" id="questionInput" placeholder="schreibe hier rein">
                 <button class="kk-button" id="questionInputBtn">test</button>
             </div>

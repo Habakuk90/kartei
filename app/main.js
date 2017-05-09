@@ -19,8 +19,9 @@ var $input,
     callback = '&callback=',
     $questCounter,
     sessionCounter = 1,
-    askMeLater = 5;
-karteiKarte = {},
+    askMeLater = 5,
+    isInit = false;
+var karteiKarte = {},
     session = [],
     arrTemp = [],
     arrRight = [],
@@ -43,6 +44,8 @@ $(document).ready(function () {
     questionPopUp.closeButton();
     questionPopUp.startButton();
     questionSubmitBtn();
+    questionTabBtn();
+    questionNoCards();
     if (session.length > askMeLater) {
         $('.translator-popup').addClass('active');
     }
@@ -67,9 +70,6 @@ var refreshVars = function () {
 var translateRequest = function () {
     var xhr = new XMLHttpRequest();
 
-    // from = $searchInputSelect.val();
-    // to = $searchOutputSelect.val();
-
     data = 'key=' + apiKey + text + $input.val() + lang + fromShort + '-' + toShort;
     console.log(url + data);
     xhr.open('POST', url, true);
@@ -87,7 +87,8 @@ var translateRequest = function () {
                     $output.html('Sorry but the Word is too similiar');
                 } else {
                     $output.val(json.text[0]);
-                    fillSession();
+                    fill.session();
+                    fill.storage();
                     if (session.length >= askMeLater) {
                         $('.translator-popup').addClass('active');
                     }
@@ -138,6 +139,29 @@ var questionSubmitBtn = function () {
     });
 }
 
+var questionTabBtn = function () {
+    $('#question-tab').on('click', function () {
+        if (session.length > 0) {
+
+            question.init();
+        } else {
+            $('.question-popup').addClass('active');
+        }
+    });
+};
+
+var questionNoCards = function () {
+    $('.question-popup button').on('click', function () {
+        $('.question-popup').removeClass('active');
+        $('nav').find('li.is-active').removeClass('is-active');
+        $('nav').find('*[data-nav-item="translator"]').addClass('is-active');
+        $quest.removeClass('is-active');
+        $translator.addClass('is-active');
+    });
+
+};
+
+
 
 
 //Question Area
@@ -150,14 +174,13 @@ var questionPopUp = {
             askMeLater += 5;
         });
     },
+
     startButton: function () {
         var $btnStart = $('#question-start');
         $btnStart.on('click', function () {
             $('.translator-popup').removeClass('active');
             $btnStart.removeClass('active');
-            $('nav').find('li.is-active').removeClass('is-active');
-            $('nav').find('*[data-nav-item="question"]').addClass('is-active');
-            $translator.removeClass('is-active');
+
             question.init();
         });
     }
@@ -166,47 +189,68 @@ var questionPopUp = {
 var question = {
 
     fillPlaceholder: function () {
-        if (session.length >= 0) {
+
+        if (session.length > 0) {
             arrTemp.push(session[0]);
-            session.splice(0, 1);
+
             $('.questInputWord').html(arrTemp[0].InputWort);
             $('.questOutputLang').html(arrTemp[0].OutputLangLong);
 
             question.counter();
         } else {
-
+            console.log(session.length, 'keine Karteikarten');
+            $('.question-popup').addClass('active');
         }
     },
 
     counter: function () {
-        $questCounter = $('.question-counter > span');
-        if (session.length >= 0) {
+        $questCounter = $('.question-counter');
+        if (session.length > 0) {
 
-            $questCounter.text(session.length);
+            $questCounter.html('noch ' + session.length + ' verbleibend');
 
         } else {
-            $questCounter.text('es sind keine Karteikärtchen mehr verfügbar!');
+            $questCounter.html('es sind keine Karteikarten mehr verfügbar!');
         }
     },
 
     awnser: function () {
+        if (session.length > 0) {
+            var $FC = $('.flip-container');
+            var $QAR = $('.question-awnser-right');
+            var $QAW = $('.question-awnser-wrong');
 
-        var input = $('#questionInput').val();
-        if (input.toLowerCase() === arrTemp[0].OutputWort.toLowerCase()) {
-            arrRight.push(arrTemp[0]);
+            var input = $('#questionInput').val();
+            if (input.toLowerCase() === arrTemp[0].OutputWort.toLowerCase()) {
+                arrRight.push(arrTemp[0]);
+
+                flipCard.right();
+
+            } else {
+                arrWrong.push(arrTemp[0]);
+                flipCard.wrong();
+            }
+            setTimeout(flipCard.clear, 2000);
             arrTemp = [];
-            console.info('correct! :)');
+            session.splice(0, 1);
+
+            question.fillPlaceholder();
+
         } else {
-            arrWrong.push(arrTemp[0]);
-            arrTemp = [];
-            console.info('wrong! :(');
+            $('.question-popup').addClass('active');
         }
-        question.fillPlaceholder();
 
     },
+
     init: function () {
+
         sessionViewHelper.refreshView();
+        question.counter();
+        $('nav').find('li.is-active').removeClass('is-active');
+        $translator.removeClass('is-active');
+        $('nav').find('*[data-nav-item="question"]').addClass('is-active');
         $quest.addClass('is-active');
+
         question.fillPlaceholder();
         $('#questionInput').focus();
     },
@@ -214,11 +258,55 @@ var question = {
     fake: function () {
         fakeFill();
         question.init();
+    },
+    check: function () {
+        console.log(session, session.length);
+        chrome.storage.local.get(function (cS) {
+            console.log(cS.session)
+        });
+    },
+
+    clear: function () {
+        session = [];
+        chrome.storage.local.clear();
     }
 }
 
 //end of Question Area
 
+
+//
+var flipCard = {
+    right: function () {
+        var $FC = $('.flip-container');
+        var $QAR = $('.question-awnser-right');
+        $QAR.addClass('awnser-flip');
+        $FC.removeClass('papa-unflip').addClass('papa-flip');
+        console.info('correct! :)');
+
+    },
+
+    wrong: function () {
+        var $FC = $('.flip-container');
+
+        var $QAW = $('.question-awnser-wrong');
+        $QAW.addClass('awnser-flip');
+        $FC.removeClass('papa-unflip').addClass('papa-flip');
+        console.info('wrong! :(');
+    },
+
+    clear: function () {
+        var $FC = $('.flip-container');
+        var $QAR = $('.question-awnser-right');
+        var $QAW = $('.question-awnser-wrong');
+
+        $FC.removeClass('papa-flip').addClass('papa-unflip');
+        
+        $QAR.removeClass('awnser-flip');
+        $QAW.removeClass('awnser-flip');
+    }
+
+}
 
 //Local Storage Area
 // function for checking the obj - essential for error handling 
@@ -252,37 +340,35 @@ var storageCheck = function () {
 
 
 // will be fired 
-var fillSession = function () {
-    // var session = [];
-    karteiKarte = {
-        id: counter,
-        InputLangShort: fromShort,
-        InputLangLong: fromLong.toLowerCase(),
-        InputWort: $input.val(),
-        OutputLangShort: toShort,
-        OutputLangLong: toLong.toLowerCase(),
-        OutputWort: $output.val()
+var fill = {
+
+    session: function () {
+        // var session = [];
+        karteiKarte = {
+            id: counter,
+            InputLangShort: fromShort,
+            InputLangLong: fromLong.toLowerCase(),
+            InputWort: $input.val(),
+            OutputLangShort: toShort,
+            OutputLangLong: toLong.toLowerCase(),
+            OutputWort: $output.val()
+        }
+        session.push(karteiKarte);
+        console.log(session);
+        counter++;
+
+        //insert api call to store in database
+    },
+    storage: function () {
+        chrome.storage.local.set({
+            session
+        }, function () {
+            console.log('karteikarte:' + karteiKarte.id + ' - ' + karteiKarte.InputWort + ' is saved');
+        });
     }
-    session.push(karteiKarte);
-    console.log(session);
-    counter++;
-    chrome.storage.local.set({
-        session
-    }, function () {
-        console.log('karteikarte:' + karteiKarte.id + ' - ' + karteiKarte.InputWort + ' is saved');
-    });
-
-
-    //insert api call to store in database
-
 
 }
-
 //end of Local Storage Area
-
-
-
-
 
 
 var sessionViewHelper = {
@@ -296,15 +382,15 @@ var sessionViewHelper = {
                     $(listItem).html(cS.session[index].InputWort + ' - ' + cS.session[index].OutputWort);
                 }
             });
-
-
         });
     },
+
     clearSession: function () {
         chrome.storage.local.clear();
         session = [];
         sessionViewHelper.refreshView();
     },
+
     saveSession: function () {
         chrome.storage.local.get(function (cS) {
             $.ajax({

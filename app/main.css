@@ -234,7 +234,7 @@ nav>ul {
 }
 
 
-/* Flip da ting*/
+/* flipcards*/
 
 .flip-container {
     perspective: 1000px;
@@ -298,3 +298,6 @@ nav>ul {
 .question-awnser-right.awnser-flip {
     display: flex;
 }
+
+/*flipcards end */
+

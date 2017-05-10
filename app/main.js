@@ -89,7 +89,7 @@ var translateRequest = function () {
                     $output.val(json.text[0]);
                     fill.session();
                     fill.storage();
-                    
+
                     if (session.length >= askMeLater) {
                         $('.translator-popup').addClass('active');
                     }
@@ -220,13 +220,10 @@ var question = {
             var $FC = $('.flip-container');
             var $QAR = $('.question-awnser-right');
             var $QAW = $('.question-awnser-wrong');
-
             var input = $('#questionInput').val();
             if (input.toLowerCase() === arrTemp[0].OutputWort.toLowerCase()) {
                 arrRight.push(arrTemp[0]);
-
                 flipCard.right();
-
             } else {
                 arrWrong.push(arrTemp[0]);
                 flipCard.wrong();
@@ -234,7 +231,6 @@ var question = {
             setTimeout(flipCard.clear, 2000);
             arrTemp = [];
             session.splice(0, 1);
-
             question.fillPlaceholder();
 
         } else {
@@ -251,7 +247,6 @@ var question = {
         $translator.removeClass('is-active');
         $('nav').find('*[data-nav-item="question"]').addClass('is-active');
         $quest.addClass('is-active');
-
         question.fillPlaceholder();
         $('#questionInput').focus();
     },
@@ -281,16 +276,16 @@ var flipCard = {
     right: function () {
         var $FC = $('.flip-container');
         var $QAR = $('.question-awnser-right');
+
         $QAR.addClass('awnser-flip');
         $FC.removeClass('papa-unflip').addClass('papa-flip');
         console.info('correct! :)');
-
     },
 
     wrong: function () {
         var $FC = $('.flip-container');
-
         var $QAW = $('.question-awnser-wrong');
+
         $QAW.addClass('awnser-flip');
         $FC.removeClass('papa-unflip').addClass('papa-flip');
         console.info('wrong! :(');
@@ -308,38 +303,9 @@ var flipCard = {
 
 }
 
-//Local Storage Area
-// function for checking the obj - essential for error handling 
-var isEmpty = function (obj) {
-    for (var prop in obj) {
-        if (obj.hasOwnProperty(prop))
-            return false;
-    }
-    return true;
-}
 
 
-// storage check will always be fired at the opening sequence in order to get every stored item in the Chrome local storage 
-var storageCheck = function () {
-    chrome.storage.local.get(function (cS) {
-        if (!isEmpty(cS.session)) {
-            if (cS.session.length > counter) {
-                counter = cS.session.length;
-                for (i = 0; i < counter; i++) {
-                    session.push(cS.session[i]);
-                }
-                console.log(session);
-                counter++;
-            }
 
-        } else {
-            console.info('Chrome Local Storage is empty!');
-        }
-    });
-}
-
-
-// will be fired 
 var fill = {
 
     session: function () {
@@ -368,7 +334,7 @@ var fill = {
     }
 
 }
-//end of Local Storage Area
+
 
 
 var sessionViewHelper = {
@@ -400,7 +366,10 @@ var sessionViewHelper = {
                 // url: 'http://local.karteikarten.de/api/session/create',
                 contentType: 'application/json',
                 success: function (a) {
-                    console.log(a);
+                    console.info(a);
+                },
+                error: function (b) {
+                    console.error(b);
                 }
             });
         });
@@ -433,6 +402,36 @@ var clickHelper = {
         });
     }
 }
+
+
+//Custom made Stuff for various usage
+// function for checking the obj - essential for error handling 
+var isEmpty = function (obj) {
+    for (var prop in obj) {
+        if (obj.hasOwnProperty(prop))
+            return false;
+    }
+    return true;
+}
+// storage check will always be fired at the opening sequence in order to get every stored item in the Chrome local storage 
+var storageCheck = function () {
+    chrome.storage.local.get(function (cS) {
+        if (!isEmpty(cS.session)) {
+            if (cS.session.length > counter) {
+                counter = cS.session.length;
+                for (i = 0; i < counter; i++) {
+                    session.push(cS.session[i]);
+                }
+                console.log(session);
+                counter++;
+            }
+
+        } else {
+            console.info('Chrome Local Storage is empty!');
+        }
+    });
+}
+
 
 // Fake Stuff
 

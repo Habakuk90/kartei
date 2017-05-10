@@ -8,10 +8,6 @@ input {
     margin: 5px auto;
 }
 
-button {
-    background-color: white;
-    border: 1px solid black;
-}
 
 .container {
     width: 250px;
@@ -30,8 +26,6 @@ button {
     min-height: 10%;
 }
 
-.tab-headline {}
-
 .tab-body,
 .front,
 .question-awnser-right,
@@ -44,6 +38,12 @@ button {
     height: inherit;
     justify-content: center;
     text-align: center;
+}
+
+.tab-body>p {
+    text-align: center;
+    width: 100%;
+    min-height: 20px;
 }
 
 .tab-footer {
@@ -62,12 +62,6 @@ button {
 
 .question-counter {
     text-align: center;
-}
-
-.tab-body>p {
-    text-align: center;
-    width: 100%;
-    min-height: 20px;
 }
 
 #questionInput {
@@ -126,8 +120,6 @@ button {
     margin-bottom: 0;
 }
 
-#search-output-select {}
-
 .kk-input,
 .kk-button {
     min-height: 35px;
@@ -138,14 +130,16 @@ button {
 
 
 /*Buttons*/
+button {
+    background-color: white;
+    border: 1px solid black;
+}
 
 .btn-question {
     position: absolute;
     left: 15px;
     top: 15px;
 }
-
-.btn {}
 
 .translator-popup-btn {
     float: left;
@@ -159,7 +153,7 @@ button {
 .question-popup {
     border: 1px solid black;
     border-radius: 5%;
-    box-shadow: 5px 5px 20px 2px rgba(0,0,0,0.3);
+    box-shadow: 5px 5px 20px 2px rgba(0, 0, 0, 0.3);
     background-color: white;
     display: none;
     color: black;
@@ -182,17 +176,12 @@ button {
     opacity: 1;
 }
 
-.question-popup button {
+.question-popup button,
+.translator-popup>p {
     width: 100%;
+    color: black;
     font-size: 20px;
 }
-
-.translator-popup>p {
-    color: black;
-    font-size:20px;
-}
-
-.translator-popup>button {}
 
 .btn {
     margin-top: 5px;
@@ -200,6 +189,9 @@ button {
 
 
 /*Buttons End*/
+
+
+/* Section */
 
 section {
     display: none;
@@ -219,6 +211,12 @@ section.is-active {
     flex-direction: column;
 }
 
+
+/* Section end */
+
+
+/* Navigation */
+
 nav>ul {
     list-style: none;
     margin: 0;
@@ -233,13 +231,13 @@ nav>ul {
     cursor: pointer;
 }
 
-.nav__item.is-active {
-    border-bottom: 2px solid black;
-}
-
+.nav__item.is-active,
 .nav__item:hover {
     border-bottom: 2px solid black;
 }
+
+
+/* Navigation end */
 
 
 /* flipcards*/

@@ -217,23 +217,22 @@ var question = {
 
     answer: function () {
         if (session.length > 0) {
-            var $FC = $('.flip-container');
-            var $QAR = $('.question-awnser-right');
-            var $QAW = $('.question-awnser-wrong');
             var input = $('#questionInput').val();
             if (input.toLowerCase() === arrTemp[0].OutputWort.toLowerCase()) {
-                arrRight.push(arrTemp[0]);
+                distri.add.right(arrTemp[0]);
                 flipCard.right();
             } else {
-                arrWrong.push(arrTemp[0]);
+                distri.add.wrong(arrTemp[0]);
                 flipCard.wrong();
             }
+            distri.check();
             setTimeout(flipCard.clear, 2000);
             arrTemp = [];
             session.splice(0, 1);
             question.fillPlaceholder();
 
         } else {
+
             $('.question-popup').addClass('active');
         }
 
@@ -241,7 +240,6 @@ var question = {
 
     init: function () {
 
-        sessionViewHelper.saveSession();
         question.counter();
         $('nav').find('li.is-active').removeClass('is-active');
         $translator.removeClass('is-active');
@@ -255,6 +253,7 @@ var question = {
         fakeFill();
         question.init();
     },
+
     check: function () {
         console.log(session, session.length);
         chrome.storage.local.get(function (cS) {
@@ -270,8 +269,42 @@ var question = {
 
 //end of Question Area
 
+var distri = {
 
-//
+    check: function () {
+        console.log('falsch: ' + arrWrong.length + 'richtig: ' + arrRight.length);
+        console.info(arrWrong, arrRight);
+
+    },
+    add: {
+        right: function (obj) {
+            var $distContainer = $('.question-distribution-container');
+
+            var blockMarkup = '<div class="block q-right test-block" ></div>';
+            
+            $($distContainer).append(blockMarkup);
+            arrRight.push(obj);
+            // InputLangShort: 'de',
+            // InputLangLong: 'deutsch',
+            // InputWort: 'Hallo',
+            // OutputLangShort: 'en',
+            // OutputLangLong: 'englisch',
+            // OutputWort: 'Hello'
+        },
+        wrong: function (obj) {
+            var $distContainer = $('.question-distribution-container');
+            var blockMarkup = '<div class="block q-wrong test-block"></div>'
+            $($distContainer).append(blockMarkup);
+            arrWrong.push(obj);
+        }
+
+    }
+
+
+
+}
+
+//flipp card area
 var flipCard = {
     right: function () {
         var $FC = $('.flip-container');
@@ -304,6 +337,9 @@ var flipCard = {
 }
 
 
+
+
+//end of flippcard area
 
 
 var fill = {

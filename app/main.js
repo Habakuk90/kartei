@@ -89,6 +89,7 @@ var translateRequest = function () {
                     $output.val(json.text[0]);
                     fill.session();
                     fill.storage();
+                    
                     if (session.length >= askMeLater) {
                         $('.translator-popup').addClass('active');
                     }
@@ -133,7 +134,7 @@ var clearCurrentSessionClick = function () {
 var questionSubmitBtn = function () {
     $('#questionInputBtn').on('click', function () {
 
-        question.awnser();
+        question.answer();
         $('#questionInput').val('');
         $('#questionInput').focus();
     });
@@ -214,7 +215,7 @@ var question = {
         }
     },
 
-    awnser: function () {
+    answer: function () {
         if (session.length > 0) {
             var $FC = $('.flip-container');
             var $QAR = $('.question-awnser-right');
@@ -244,7 +245,7 @@ var question = {
 
     init: function () {
 
-        sessionViewHelper.refreshView();
+        sessionViewHelper.saveSession();
         question.counter();
         $('nav').find('li.is-active').removeClass('is-active');
         $translator.removeClass('is-active');
@@ -301,7 +302,6 @@ var flipCard = {
         var $QAW = $('.question-awnser-wrong');
 
         $FC.removeClass('papa-flip').addClass('papa-unflip');
-        
         $QAR.removeClass('awnser-flip');
         $QAW.removeClass('awnser-flip');
     }

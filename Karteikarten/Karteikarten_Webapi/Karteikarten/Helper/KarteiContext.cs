@@ -4,7 +4,7 @@ using System.Data.Entity;
 
 namespace Karteikarten_Webapi.Karteikarten.Helper
 {
-    public class KarteiContext : IdentityDbContext<IdentityUser>
+    public class KarteiContext : IdentityDbContext<UserModel>
     {
         public KarteiContext()
             : base("web", throwIfV1Schema: false)
@@ -33,6 +33,16 @@ namespace Karteikarten_Webapi.Karteikarten.Helper
                            cs.MapRightKey("KarteikarteId");
                            cs.ToTable("KarteiSessions_Karteikartes");
                        });
+
+            modelBuilder.Entity<UserModel>()
+               .HasMany<KarteiSession>(s => s.KarteiSession)
+               .WithMany(c => c.User)
+               .Map(cs =>
+               {
+                   cs.MapLeftKey("UserId");
+                   cs.MapRightKey("KarteiSessionId");
+                   cs.ToTable("User_KarteiSession");
+               });
 
             base.OnModelCreating(modelBuilder);
         }

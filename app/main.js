@@ -423,18 +423,9 @@ var clickHelper = {
             $('.nav__item.is-active').removeClass('is-active');
             $(e.target).addClass('is-active');
             $(activeItem).removeClass('is-active');
-            switch (dataAttr) {
-                case 'translator':
-                    $translator.addClass('is-active');
-                    break;
-                case 'session':
-                    $sessionArea.addClass('is-active');
-                    sessionViewHelper.refreshView();
-                    break;
-                case 'question':
-                    $quest.addClass('is-active');
-                    break;
-            }
+
+            $('.' + dataAttr).addClass('is-active');
+            sessionViewHelper.refreshView();
         });
     }
 }
@@ -529,4 +520,30 @@ var fakeFill = function () {
     chrome.storage.local.get(function (cS) {
         console.log(cS.session)
     })
+}
+
+
+
+
+
+// WORKAROUND INIT DATABASE ONLY USE ONCE 
+
+var testomat = function () {
+
+    chrome.storage.local.get(function (cS) {
+debugger;
+        $.ajax({
+        type: 'POST',
+        data: JSON.stringify(cS.session[0]),
+        url: 'http://localhost:55845/api/kartei/create',
+        contentType: 'application/json',
+        success: function (a) {
+            console.log(a);
+            debugger;
+        }
+    });
+    });
+    
+
+    
 }

@@ -20,6 +20,7 @@ var $input,
     $questCounter,
     sessionCounter = 1,
     askMeLater = 5,
+    distriResult,
     isInit = false;
 var karteiKarte = {},
     session = [],
@@ -211,6 +212,7 @@ var question = {
             $questCounter.html('noch ' + session.length + ' verbleibend');
 
         } else {
+            $questCounter.html('keine mehr verbleibend ');
             $questCounter.html('es sind keine Karteikarten mehr verfügbar!');
         }
     },
@@ -225,7 +227,7 @@ var question = {
                 distri.add.wrong(arrTemp[0]);
                 flipCard.wrong();
             }
-            distri.check();
+
             setTimeout(flipCard.clear, 2000);
             arrTemp = [];
             session.splice(0, 1);
@@ -247,6 +249,7 @@ var question = {
         $quest.addClass('is-active');
         question.fillPlaceholder();
         $('#questionInput').focus();
+        distri.check();
     },
 
     fake: function () {
@@ -272,33 +275,32 @@ var question = {
 var distri = {
 
     check: function () {
-        console.log('falsch: ' + arrWrong.length + 'richtig: ' + arrRight.length);
-        console.info(arrWrong, arrRight);
 
+        distriResult = 100 / session.length;
     },
+
     add: {
         right: function (obj) {
             var $distContainer = $('.question-distribution-container');
+            var width = 'style="width: calc(' + distriResult + '% - 1px);"';
+            var blockMarkup = '<div class="block q-right test-block"' + width + ' ></div>';
 
-            var blockMarkup = '<div class="block q-right test-block" ></div>';
-            
             $($distContainer).append(blockMarkup);
             arrRight.push(obj);
-            // InputLangShort: 'de',
-            // InputLangLong: 'deutsch',
-            // InputWort: 'Hallo',
-            // OutputLangShort: 'en',
-            // OutputLangLong: 'englisch',
-            // OutputWort: 'Hello'
+
         },
+
         wrong: function (obj) {
             var $distContainer = $('.question-distribution-container');
-            var blockMarkup = '<div class="block q-wrong test-block"></div>'
+            var width = 'style="width: calc(' + distriResult + '% - 1px);"';
+            var blockMarkup = '<div class="block q-wrong test-block"' + width + ' ></div>';
+
             $($distContainer).append(blockMarkup);
             arrWrong.push(obj);
         }
 
     }
+
 
 
 
@@ -531,19 +533,19 @@ var fakeFill = function () {
 var testomat = function () {
 
     chrome.storage.local.get(function (cS) {
-debugger;
+        debugger;
         $.ajax({
-        type: 'POST',
-        data: JSON.stringify(cS.session[0]),
-        url: 'http://localhost:55845/api/kartei/create',
-        contentType: 'application/json',
-        success: function (a) {
-            console.log(a);
-            debugger;
-        }
+            type: 'POST',
+            data: JSON.stringify(cS.session[0]),
+            url: 'http://localhost:55845/api/kartei/create',
+            contentType: 'application/json',
+            success: function (a) {
+                console.log(a);
+                debugger;
+            }
+        });
     });
-    });
-    
 
-    
+
+
 }

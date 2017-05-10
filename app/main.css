@@ -245,17 +245,18 @@ nav>ul {
 .question-distribution-container {
     width: 100%;
     height: 22px;
-
 }
 
-.question-distribution-container >.block {
+.question-distribution-container>.block {
     height: 100%;
     float: left;
+    margin-right: 1px;
 }
-.test-block{
-    width:10%;
 
+.question-distribution-container>.block:last-child {
+    margin-right: 0px;
 }
+
 .block.q-right {
     background-color: green;
 }
@@ -263,8 +264,6 @@ nav>ul {
 .block.q-wrong {
     background-color: red;
 }
-
-
 
 
 /* distribution end */

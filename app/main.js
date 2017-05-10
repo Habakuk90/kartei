@@ -332,18 +332,9 @@ var clickHelper = {
             $('.nav__item.is-active').removeClass('is-active');
             $(e.target).addClass('is-active');
             $(activeItem).removeClass('is-active');
-            switch (dataAttr) {
-                case 'translator':
-                    $translator.addClass('is-active');
-                    break;
-                case 'session':
-                    $sessionArea.addClass('is-active');
-                    sessionViewHelper.refreshView();
-                    break;
-                case 'question':
-                    $quest.addClass('is-active');
-                    break;
-            }
+
+            $('.'+ dataAttr).addClass('is-active');
+            sessionViewHelper.refreshView();
         });
     }
 }

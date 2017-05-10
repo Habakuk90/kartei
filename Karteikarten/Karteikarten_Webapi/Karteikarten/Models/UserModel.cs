@@ -9,6 +9,11 @@ namespace Karteikarten_Webapi.Karteikarten.Models
     public class UserModel : IdentityUser
     {
 
+        public UserModel()
+        {
+            this.KarteiSession = new HashSet<KarteiSession>();
+        }
 
+        public virtual ICollection<KarteiSession> KarteiSession { get; set; }
     }
 }

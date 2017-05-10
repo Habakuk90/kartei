@@ -12,6 +12,8 @@
   "permissions": [
     "activeTab",
     "tabs",
-    "storage"
+    "storage",
+    "cookies",
+    "http://localhost:55845/"
   ]
 }

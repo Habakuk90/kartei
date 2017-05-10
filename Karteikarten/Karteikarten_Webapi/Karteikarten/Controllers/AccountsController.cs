@@ -63,7 +63,7 @@ namespace Karteikarten_Webapi.Karteikarten.Controllers
                 return NotFound();
             }
 
-            IdentityUser user = await _repo.FindUser(loginModel);
+            UserModel user = await _repo.FindUser(loginModel);
 
             if (user != null)
             {
@@ -90,7 +90,7 @@ namespace Karteikarten_Webapi.Karteikarten.Controllers
         }
 
 
-        HttpResponseMessage SetCookie(IdentityUser userModel)
+        HttpResponseMessage SetCookie(UserModel userModel)
         {
             var resp = new HttpResponseMessage(HttpStatusCode.Accepted);
             

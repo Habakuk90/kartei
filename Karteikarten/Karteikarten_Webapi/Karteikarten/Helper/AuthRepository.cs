@@ -10,17 +10,17 @@ namespace Karteikarten_Webapi.Karteikarten.Helper
     {
         private KarteiContext _userContext;
 
-        private UserManager<IdentityUser> _userManager;
+        private UserManager<UserModel> _userManager;
 
         public AuthRepository()
         {
             _userContext = new KarteiContext();
-            _userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(_userContext));
+            _userManager = new UserManager<UserModel>(new UserStore<UserModel>(_userContext));
         }
 
         public async Task<IdentityResult> RegisterUser(Register userModel)
         {
-            IdentityUser user = new IdentityUser();
+            UserModel user = new UserModel();
 
             user.UserName = userModel.UserName;
 
@@ -32,9 +32,9 @@ namespace Karteikarten_Webapi.Karteikarten.Helper
         }
 
 
-        public async Task<IdentityUser> FindUser(Login loginModel)
+        public async Task<UserModel> FindUser(Login loginModel)
         {
-            IdentityUser user = await _userManager.FindAsync(loginModel.UserName, loginModel.Password);
+            UserModel user = await _userManager.FindAsync(loginModel.UserName, loginModel.Password);
 
             return user;
         }

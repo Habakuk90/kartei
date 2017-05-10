@@ -19,8 +19,10 @@ var $input,
     callback = '&callback=',
     $questCounter,
     sessionCounter = 1,
-    askMeLater = 5;
-karteiKarte = {},
+    askMeLater = 5,
+    distriResult,
+    isInit = false;
+var karteiKarte = {},
     session = [],
     arrTemp = [],
     arrRight = [],
@@ -43,6 +45,8 @@ $(document).ready(function () {
     questionPopUp.closeButton();
     questionPopUp.startButton();
     questionSubmitBtn();
+    questionTabBtn();
+    questionNoCards();
     if (session.length > askMeLater) {
         $('.translator-popup').addClass('active');
     }
@@ -67,9 +71,6 @@ var refreshVars = function () {
 var translateRequest = function () {
     var xhr = new XMLHttpRequest();
 
-    // from = $searchInputSelect.val();
-    // to = $searchOutputSelect.val();
-
     data = 'key=' + apiKey + text + $input.val() + lang + fromShort + '-' + toShort;
     console.log(url + data);
     xhr.open('POST', url, true);
@@ -87,7 +88,9 @@ var translateRequest = function () {
                     $output.html('Sorry but the Word is too similiar');
                 } else {
                     $output.val(json.text[0]);
-                    fillSession();
+                    fill.session();
+                    fill.storage();
+
                     if (session.length >= askMeLater) {
                         $('.translator-popup').addClass('active');
                     }
@@ -132,11 +135,34 @@ var clearCurrentSessionClick = function () {
 var questionSubmitBtn = function () {
     $('#questionInputBtn').on('click', function () {
 
-        question.awnser();
+        question.answer();
         $('#questionInput').val('');
         $('#questionInput').focus();
     });
 }
+
+var questionTabBtn = function () {
+    $('#question-tab').on('click', function () {
+        if (session.length > 0) {
+
+            question.init();
+        } else {
+            $('.question-popup').addClass('active');
+        }
+    });
+};
+
+var questionNoCards = function () {
+    $('.question-popup button').on('click', function () {
+        $('.question-popup').removeClass('active');
+        $('nav').find('li.is-active').removeClass('is-active');
+        $('nav').find('*[data-nav-item="translator"]').addClass('is-active');
+        $quest.removeClass('is-active');
+        $translator.addClass('is-active');
+    });
+
+};
+
 
 
 
@@ -150,14 +176,13 @@ var questionPopUp = {
             askMeLater += 5;
         });
     },
+
     startButton: function () {
         var $btnStart = $('#question-start');
         $btnStart.on('click', function () {
             $('.translator-popup').removeClass('active');
             $btnStart.removeClass('active');
-            $('nav').find('li.is-active').removeClass('is-active');
-            $('nav').find('*[data-nav-item="question"]').addClass('is-active');
-            $translator.removeClass('is-active');
+
             question.init();
         });
     }
@@ -166,61 +191,249 @@ var questionPopUp = {
 var question = {
 
     fillPlaceholder: function () {
-        if (session.length >= 0) {
+
+        if (session.length > 0) {
             arrTemp.push(session[0]);
-            session.splice(0, 1);
+
             $('.questInputWord').html(arrTemp[0].InputWort);
             $('.questOutputLang').html(arrTemp[0].OutputLangLong);
 
             question.counter();
         } else {
-
+            console.log(session.length, 'keine Karteikarten');
+            $('.question-popup').addClass('active');
         }
     },
 
     counter: function () {
-        $questCounter = $('.question-counter > span');
-        if (session.length >= 0) {
+        $questCounter = $('.question-counter');
+        if (session.length > 0) {
 
-            $questCounter.text(session.length);
+            $questCounter.html('noch ' + session.length + ' verbleibend');
 
         } else {
-            $questCounter.text('es sind keine Karteikärtchen mehr verfügbar!');
+            $questCounter.html('keine mehr verbleibend ');
+            $questCounter.html('es sind keine Karteikarten mehr verfügbar!');
         }
     },
 
-    awnser: function () {
+    answer: function () {
+        if (session.length > 0) {
+            var input = $('#questionInput').val();
+            if (input.toLowerCase() === arrTemp[0].OutputWort.toLowerCase()) {
+                distri.add.right(arrTemp[0]);
+                flipCard.right();
+            } else {
+                distri.add.wrong(arrTemp[0]);
+                flipCard.wrong();
+            }
 
-        var input = $('#questionInput').val();
-        if (input.toLowerCase() === arrTemp[0].OutputWort.toLowerCase()) {
-            arrRight.push(arrTemp[0]);
+            setTimeout(flipCard.clear, 2000);
             arrTemp = [];
-            console.info('correct! :)');
+            session.splice(0, 1);
+            question.fillPlaceholder();
+
         } else {
-            arrWrong.push(arrTemp[0]);
-            arrTemp = [];
-            console.info('wrong! :(');
+
+            $('.question-popup').addClass('active');
         }
-        question.fillPlaceholder();
 
     },
+
     init: function () {
-        sessionViewHelper.refreshView();
+
+        question.counter();
+        $('nav').find('li.is-active').removeClass('is-active');
+        $translator.removeClass('is-active');
+        $('nav').find('*[data-nav-item="question"]').addClass('is-active');
         $quest.addClass('is-active');
         question.fillPlaceholder();
         $('#questionInput').focus();
+        distri.check();
     },
 
     fake: function () {
         fakeFill();
         question.init();
+    },
+
+    check: function () {
+        console.log(session, session.length);
+        chrome.storage.local.get(function (cS) {
+            console.log(cS.session)
+        });
+    },
+
+    clear: function () {
+        session = [];
+        chrome.storage.local.clear();
     }
 }
 
 //end of Question Area
 
+var distri = {
 
-//Local Storage Area
+    check: function () {
+
+        distriResult = 100 / session.length;
+    },
+
+    add: {
+        right: function (obj) {
+            var $distContainer = $('.question-distribution-container');
+            var width = 'style="width: calc(' + distriResult + '% - 1px);"';
+            var blockMarkup = '<div class="block q-right test-block"' + width + ' ></div>';
+
+            $($distContainer).append(blockMarkup);
+            arrRight.push(obj);
+
+        },
+
+        wrong: function (obj) {
+            var $distContainer = $('.question-distribution-container');
+            var width = 'style="width: calc(' + distriResult + '% - 1px);"';
+            var blockMarkup = '<div class="block q-wrong test-block"' + width + ' ></div>';
+
+            $($distContainer).append(blockMarkup);
+            arrWrong.push(obj);
+        }
+
+    }
+
+
+
+
+}
+
+//flipp card area
+var flipCard = {
+    right: function () {
+        var $FC = $('.flip-container');
+        var $QAR = $('.question-awnser-right');
+
+        $QAR.addClass('awnser-flip');
+        $FC.removeClass('papa-unflip').addClass('papa-flip');
+        console.info('correct! :)');
+    },
+
+    wrong: function () {
+        var $FC = $('.flip-container');
+        var $QAW = $('.question-awnser-wrong');
+
+        $QAW.addClass('awnser-flip');
+        $FC.removeClass('papa-unflip').addClass('papa-flip');
+        console.info('wrong! :(');
+    },
+
+    clear: function () {
+        var $FC = $('.flip-container');
+        var $QAR = $('.question-awnser-right');
+        var $QAW = $('.question-awnser-wrong');
+
+        $FC.removeClass('papa-flip').addClass('papa-unflip');
+        $QAR.removeClass('awnser-flip');
+        $QAW.removeClass('awnser-flip');
+    }
+
+}
+
+
+
+
+//end of flippcard area
+
+
+var fill = {
+
+    session: function () {
+        // var session = [];
+        karteiKarte = {
+            id: counter,
+            InputLangShort: fromShort,
+            InputLangLong: fromLong.toLowerCase(),
+            InputWort: $input.val(),
+            OutputLangShort: toShort,
+            OutputLangLong: toLong.toLowerCase(),
+            OutputWort: $output.val()
+        }
+        session.push(karteiKarte);
+        console.log(session);
+        counter++;
+
+        //insert api call to store in database
+    },
+    storage: function () {
+        chrome.storage.local.set({
+            session
+        }, function () {
+            console.log('karteikarte:' + karteiKarte.id + ' - ' + karteiKarte.InputWort + ' is saved');
+        });
+    }
+
+}
+
+
+
+var sessionViewHelper = {
+    refreshView: function () {
+        chrome.storage.local.get(function (cS) {
+            var $listContainer = $('.session-list');
+            var sessionListItems = $listContainer.children();
+            $(sessionListItems).each(function (index, listItem) {
+                $(listItem).html('');
+                if (cS.session && cS.session.length > index) {
+                    $(listItem).html(cS.session[index].InputWort + ' - ' + cS.session[index].OutputWort);
+                }
+            });
+        });
+    },
+
+    clearSession: function () {
+        chrome.storage.local.clear();
+        session = [];
+        sessionViewHelper.refreshView();
+    },
+
+    saveSession: function () {
+        chrome.storage.local.get(function (cS) {
+            $.ajax({
+                type: 'POST',
+                data: JSON.stringify(cS.session),
+                url: 'http://localhost:55845/api/session/create',
+                // url: 'http://local.karteikarten.de/api/session/create',
+                contentType: 'application/json',
+                success: function (a) {
+                    console.info(a);
+                },
+                error: function (b) {
+                    console.error(b);
+                }
+            });
+        });
+    }
+}
+
+
+var clickHelper = {
+    navItemClick: function () {
+        var $navItems = $('.nav__item');
+        var $sessionArea = $('.session');
+        $navItems.on('click', function (e) {
+            var dataAttr = $(e.target).attr('data-nav-item');
+            var activeItem = $('.container').find('.is-active');
+            $('.nav__item.is-active').removeClass('is-active');
+            $(e.target).addClass('is-active');
+            $(activeItem).removeClass('is-active');
+
+            $('.' + dataAttr).addClass('is-active');
+            sessionViewHelper.refreshView();
+        });
+    }
+}
+
+
+//Custom made Stuff for various usage
 // function for checking the obj - essential for error handling 
 var isEmpty = function (obj) {
     for (var prop in obj) {
@@ -229,8 +442,6 @@ var isEmpty = function (obj) {
     }
     return true;
 }
-
-
 // storage check will always be fired at the opening sequence in order to get every stored item in the Chrome local storage 
 var storageCheck = function () {
     chrome.storage.local.get(function (cS) {
@@ -250,103 +461,6 @@ var storageCheck = function () {
     });
 }
 
-
-// will be fired 
-var fillSession = function () {
-    // var session = [];
-    karteiKarte = {
-        id: counter,
-        InputLangShort: fromShort,
-        InputLangLong: fromLong.toLowerCase(),
-        InputWort: $input.val(),
-        OutputLangShort: toShort,
-        OutputLangLong: toLong.toLowerCase(),
-        OutputWort: $output.val()
-    }
-    session.push(karteiKarte);
-    console.log(session);
-    counter++;
-    chrome.storage.local.set({
-        session
-    }, function () {
-        console.log('karteikarte:' + karteiKarte.id + ' - ' + karteiKarte.InputWort + ' is saved');
-    });
-
-
-    //insert api call to store in database
-
-
-}
-
-//end of Local Storage Area
-
-
-
-
-
-
-var sessionViewHelper = {
-    refreshView: function () {
-        chrome.storage.local.get(function (cS) {
-            var $listContainer = $('.session-list');
-            var sessionListItems = $listContainer.children();
-            $(sessionListItems).each(function (index, listItem) {
-                $(listItem).html('');
-                if (cS.session && cS.session.length > index) {
-                    $(listItem).html(cS.session[index].InputWort + ' - ' + cS.session[index].OutputWort);
-                }
-            });
-
-
-        });
-    },
-    clearSession: function () {
-        chrome.storage.local.clear();
-        session = [];
-        sessionViewHelper.refreshView();
-    },
-    saveSession: function () {
-        chrome.storage.local.get(function (cS) {
-            $.ajax({
-                type: 'POST',
-                data: JSON.stringify(cS.session),
-                url: 'http://localhost:55845/api/session/create',
-                // url: 'http://local.karteikarten.de/api/session/create',
-                contentType: 'application/json',
-                success: function (a) {
-                    console.log(a);
-                }
-            });
-        });
-    }
-}
-
-
-var clickHelper = {
-    navItemClick: function () {
-        var $navItems = $('.nav__item');
-        var $sessionArea = $('.session');
-        $navItems.on('click', function (e) {
-            var dataAttr = $(e.target).attr('data-nav-item');
-            var activeItem = $('.container').find('.is-active');
-            $('.nav__item.is-active').removeClass('is-active');
-            $(e.target).addClass('is-active');
-            $(activeItem).removeClass('is-active');
-            switch (dataAttr) {
-                case 'translator':
-                    $translator.addClass('is-active');
-                    break;
-                case 'session':
-                    $sessionArea.addClass('is-active');
-                    sessionViewHelper.refreshView();
-                    break;
-                case 'question':
-                    $quest.addClass('is-active');
-                    break;
-            }
-        });
-    }
-}
 
 // Fake Stuff
 
@@ -408,4 +522,30 @@ var fakeFill = function () {
     chrome.storage.local.get(function (cS) {
         console.log(cS.session)
     })
+}
+
+
+
+
+
+// WORKAROUND INIT DATABASE ONLY USE ONCE 
+
+var testomat = function () {
+
+    chrome.storage.local.get(function (cS) {
+        debugger;
+        $.ajax({
+            type: 'POST',
+            data: JSON.stringify(cS.session[0]),
+            url: 'http://localhost:55845/api/kartei/create',
+            contentType: 'application/json',
+            success: function (a) {
+                console.log(a);
+                debugger;
+            }
+        });
+    });
+
+
+
 }

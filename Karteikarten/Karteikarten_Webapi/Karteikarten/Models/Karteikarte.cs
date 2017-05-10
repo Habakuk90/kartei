@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Karteikarten_Webapi.Karteikarten.Models;
+
 
 namespace Karteikarten_Webapi.Karteikarten.Models
 {
@@ -15,14 +17,10 @@ namespace Karteikarten_Webapi.Karteikarten.Models
         public int KarteikarteId { get; set; }
         public string InputWort { get; set; }
         public string OutputWort { get; set; }
-        public string InputLang { get; set; }
-        public string OutputLang { get; set; }
-
 
         public string InputLangShort { get; set; }
         public string InputLangLong { get; set; }
-
-
+        
         public string OutputLangShort { get; set; }
         public string OutputLangLong { get; set; }
 

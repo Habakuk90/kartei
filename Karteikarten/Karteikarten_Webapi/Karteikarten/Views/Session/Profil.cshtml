@@ -1,0 +1,16 @@
+﻿@using Karteikarten_Webapi.Karteikarten.Models
+<div class="section-wrapper">
+    @foreach (var item in Model)
+    {
+        <ul class="section-container">
+            @foreach (var karteiKarte in item.Karteikartes)
+            {
+                <li class="session-item">
+                    <span>Gesucht: "@karteiKarte.InputWort" in  @karteiKarte.InputLangLong</span><br>
+                    <span>Übersetzung: "@karteiKarte.OutputWort" in @karteiKarte.OutputLangLong</span>
+                </li>
+                
+            }
+        </ul>
+    }
+</div>

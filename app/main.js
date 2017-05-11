@@ -400,7 +400,7 @@ var sessionViewHelper = {
             $.ajax({
                 type: 'POST',
                 data: JSON.stringify(cS.session),
-                url: 'http://localhost:55845/api/session/create',
+                url: 'http://local.karteikarten.de/api/session/create',
                 // url: 'http://local.karteikarten.de/api/session/create',
                 contentType: 'application/json',
                 success: function (a) {
@@ -537,7 +537,7 @@ var testomat = function () {
         $.ajax({
             type: 'POST',
             data: JSON.stringify(cS.session[0]),
-            url: 'http://localhost:55845/api/kartei/create',
+            url: 'http://local.karteikarten.de/api/kartei/create',
             contentType: 'application/json',
             success: function (a) {
                 console.log(a);

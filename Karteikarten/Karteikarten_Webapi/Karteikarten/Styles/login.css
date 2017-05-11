@@ -10,3 +10,24 @@
     width: 50%;
     margin: 0;
 }
+
+.section-wrapper {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.section-container {
+    list-style-type: none;
+    padding: 0;
+    border: 1px solid black;
+}
+
+.session-item {
+    padding: 5px;
+    text-align: center;
+    border-bottom: 1px solid black;
+}
+
+.session-item:last-child {
+    border: none;
+}

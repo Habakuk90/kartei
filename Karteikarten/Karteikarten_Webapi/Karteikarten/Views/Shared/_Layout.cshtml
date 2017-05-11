@@ -4,30 +4,21 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     @*<script src="https://code.jquery.com/jquery-3.2.1.min.js"
-            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-            crossorigin="anonymous"></script>*@
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>*@
     <script src="~/Karteikarten/Scripts/vendor/jquery-3.2.1.min.js"></script>
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Karteikarten/css")
-    
+
 </head>
 <body>
-    <header>
-        <div class="content-wrapper">
-            <div class="float-left">
-                <p class="site-title">
-                    <a href="~/">ASP.NET Web API2</a></p>
-            </div>
-            <div class="float-right">
-                <nav>
-                    <ul id="menu">
-                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                        <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
+    <nav>
+        <ul id="menu">
+            <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
+        </ul>
+    </nav>
+
     @RenderBody()
 
 

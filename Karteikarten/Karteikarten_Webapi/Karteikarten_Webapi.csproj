@@ -250,7 +250,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
-    <Content Include="favicon.ico" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
     <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
@@ -271,6 +270,7 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
+    <Content Include="favicon.ico" />
     <Content Include="Karteikarten\Scripts\vendor\jquery-3.2.1.min.js" />
     <Content Include="Karteikarten\Styles\login.css" />
     <Content Include="Karteikarten\Scripts\auth.js" />
@@ -311,12 +311,14 @@
     <Content Include="Karteikarten\Views\Session\Session.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Karteikarten\Views\Session\Profil.cshtml" />
+    <Content Include="Views\Web.config" />
     <Content Include="Karteikarten\Views\Web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Web.config" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

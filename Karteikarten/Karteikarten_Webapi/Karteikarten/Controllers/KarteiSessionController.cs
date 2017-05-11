@@ -88,17 +88,16 @@ namespace Karteikarten_Webapi.Karteikarten.Controllers
                     newSession.Name = "Default " + (karteiSessionCount + 1);
                 }
 
-                //if (HttpContext.Current.Request.Cookies.AllKeys. > 0)
-                //{
 
-                //}
+                if (HttpContext.Current.Request.Cookies["userName"] != null)
+                {
+                    string userName = HttpContext.Current.Request.Cookies["userName"].Value;
 
-                //string userName = HttpContext.Current.Request.Cookies["userName"].Value;
-
-                //if (!string.IsNullOrWhiteSpace(userName))
-                //{
-                //    newSession.User = context.Users.Where(x => x.UserName == userName).ToList();
-                //}
+                    if (!string.IsNullOrWhiteSpace(userName))
+                    {
+                        newSession.User = context.Users.Where(x => x.UserName == userName).ToList();
+                    }
+                }
 
 
                 context.KarteiSession.Add(newSession);

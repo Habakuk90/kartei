@@ -12,12 +12,21 @@
 
 </head>
 <body>
+    @{
+        var cookie = "+";
+        if (HttpContext.Current.Request.Cookies["userName"] != null)
+        {
+            cookie = HttpContext.Current.Request.Cookies["userName"].Value;
+        }
+        
+    }
     <nav>
         <ul id="menu">
             <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-            <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
+            <li>@Html.ActionLink(cookie, "Profil", "Home", new { area = "" }, null)</li>
         </ul>
     </nav>
+    
 
     @RenderBody()
 

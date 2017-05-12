@@ -38,10 +38,12 @@ namespace Karteikarten_Webapi.Karteikarten.Controllers
             return View("~/Karteikarten/Views/Session/Session.cshtml", karteiSession);
         }
 
-        [Route("Home/Profil/{username}")]
-        public ActionResult Profil(string userName)
+        public ActionResult Profil()
         {
-            List<KarteiSession> session = HelperForDemo.GetUserSessions(userName);
+
+            var x = Request.Cookies["userName"].Value;
+
+            List<KarteiSession> session = HelperForDemo.GetUserSessions(x);
 
             return View("~/Karteikarten/Views/Session/Profil.cshtml", session);
             //return View();
